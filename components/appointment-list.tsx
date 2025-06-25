@@ -1,7 +1,14 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,14 +16,33 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { MoreHorizontal, Edit, Trash, Calendar, Phone, Mail } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  MoreHorizontal,
+  Edit,
+  Trash,
+  Calendar,
+  Phone,
+  Mail,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 // Sample appointment data
 const appointmentsData = [
@@ -150,7 +176,7 @@ const appointmentsData = [
     notes: "Platform training for new team members",
     location: "Training Room B",
   },
-]
+];
 
 // Past appointments (for demo purposes)
 const pastAppointments = [
@@ -180,7 +206,7 @@ const pastAppointments = [
     notes: "Demonstrated core features",
     location: "Client Office",
   },
-]
+];
 
 // Canceled appointments (for demo purposes)
 const canceledAppointments = [
@@ -197,32 +223,36 @@ const canceledAppointments = [
     notes: "Client requested to reschedule",
     location: "Video Call",
   },
-]
+];
 
 export function AppointmentList({ filter = "all" }) {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [typeFilter, setTypeFilter] = useState("all")
-  const [selectedAppointment, setSelectedAppointment] = useState(null)
-  const [dialogOpen, setDialogOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   // Filter appointments based on the selected filter
   const getFilteredAppointments = () => {
-    let filteredData = []
+    let filteredData = [];
 
     switch (filter) {
       case "upcoming":
-        filteredData = appointmentsData
-        break
+        filteredData = appointmentsData;
+        break;
       case "past":
-        filteredData = pastAppointments
-        break
+        filteredData = pastAppointments;
+        break;
       case "canceled":
-        filteredData = canceledAppointments
-        break
+        filteredData = canceledAppointments;
+        break;
       case "all":
       default:
-        filteredData = [...appointmentsData, ...pastAppointments, ...canceledAppointments]
-        break
+        filteredData = [
+          ...appointmentsData,
+          ...pastAppointments,
+          ...canceledAppointments,
+        ];
+        break;
     }
 
     // Apply search filter
@@ -230,47 +260,101 @@ export function AppointmentList({ filter = "all" }) {
       filteredData = filteredData.filter(
         (appointment) =>
           appointment.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          appointment.contactName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          appointment.location.toLowerCase().includes(searchQuery.toLowerCase()),
-      )
+          appointment.contactName
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          appointment.location.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
 
     // Apply type filter
     if (typeFilter !== "all") {
-      filteredData = filteredData.filter((appointment) => appointment.type === typeFilter)
+      filteredData = filteredData.filter(
+        (appointment) => appointment.type === typeFilter
+      );
     }
 
-    return filteredData
-  }
+    return filteredData;
+  };
 
-  const filteredAppointments = getFilteredAppointments()
+  const filteredAppointments = getFilteredAppointments();
 
   // Get badge variant based on status
-  const getStatusBadgeVariant = (status) => {
-    switch (status) {
-      case "confirmed":
-        return "default"
-      case "tentative":
-        return "secondary"
-      case "completed":
-        return "success"
-      case "canceled":
-        return "destructive"
-      default:
-        return "outline"
-    }
-  }
+  // const getStatusBadgeVariant = (status: string) => {
+  //   switch (status) {
+  //     case "confirmed":
+  //       return "default"
+  //     case "tentative":
+  //       return "secondary"
+  //     case "completed":
+  //       return "success"
+  //     case "canceled":
+  //       return "destructive"
+  //     default:
+  //       return "outline"
+  //   }
+  // }
 
   // Get badge variant based on appointment type
-  const getTypeBadgeVariant = (type) => {
-    return "outline"
-  }
+  // const getTypeBadgeVariant = (type: string) => {
+  //   return "outline"
+  // }
+
+  const getStatusBadgeVariant = (status: string) => {
+    switch (status) {
+      case "confirmed":
+        return "text-[#40BF40] border-[#40BF40]"; // Green
+      case "tentative":
+        return "text-[#66FFB2] border-[#66FFB2]"; // Mint Green
+      case "consulted":
+        return "text-[#4DB8FF] border-[#4DB8FF]"; // Blue
+      case "no show":
+        return "text-[#FF3333] border-[#FF3333]"; // Red
+      case "scheduled":
+        return "text-[#9933FF] border-[#9933FF]"; // Purple
+      case "review":
+        return "text-[#F59E0B] border-[#F59E0B]"; // Amber/Orange
+      case "completed":
+        return "text-[#008080] border-[#008080]" // Teal
+      case "canceled":
+        return "text-[#FF3333] border-[#FF3333]"; // Red
+      default:
+        return "text-[#6B7280] border-[#6B7280]"; // Gray
+    }
+  };
+
+  const getTypeBadgeVariant = (type: string) => {
+    switch (type) {
+      case "consultation":
+        return "text-[#3b82f6] border-[#3b82f6]"; // Blue
+      case "follow-up":
+        return "text-[#10b981] border-[#10b981]"; // Green
+      case "demo":
+        return "text-[#8b5cf6] border-[#8b5cf6]"; // Purple
+      case "review":
+        return "text-[#F59E0B] border-[#F59E0B]"; // Amber/Orange
+      case "onboarding":
+        return "text-[#ec4899] border-[#ec4899]"; // Pink
+      case "support":
+        return "text-[#6366f1] border-[#6366f1]"; // Indigo
+      case "presentation":
+        return "text-[#f43f5e] border-[#f43f5e]"; // Rose
+      case "kickoff":
+        return "text-[#d97706] border-[#d97706]"; // Amber
+      case "training":
+        return "text-[#14b8a6] border-[#14b8a6]"; // Teal
+      case "strategy":
+        return "text-[#6d28d9] border-[#6d28d9]"; // Deep Purple
+      default:
+        return "text-[#6B7280] border-[#6B7280]"; // Gray
+    }
+  };
 
   // Handle view appointment details
   const handleViewDetails = (appointment) => {
-    setSelectedAppointment(appointment)
-    setDialogOpen(true)
-  }
+    setSelectedAppointment(appointment);
+    setDialogOpen(true);
+  };
 
   return (
     <div className="space-y-4">
@@ -318,14 +402,19 @@ export function AppointmentList({ filter = "all" }) {
           <TableBody>
             {filteredAppointments.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                <TableCell
+                  colSpan={7}
+                  className="text-center py-8 text-muted-foreground"
+                >
                   No appointments found
                 </TableCell>
               </TableRow>
             ) : (
               filteredAppointments.map((appointment) => (
                 <TableRow key={appointment.id}>
-                  <TableCell className="font-medium">{appointment.title}</TableCell>
+                  <TableCell className="font-medium">
+                    {appointment.title}
+                  </TableCell>
                   <TableCell>
                     <div className="flex items-center space-x-2">
                       <Avatar className="h-8 w-8">
@@ -337,22 +426,40 @@ export function AppointmentList({ filter = "all" }) {
                         </AvatarFallback>
                       </Avatar>
                       <div className="space-y-1">
-                        <p className="text-sm font-medium leading-none">{appointment.contactName}</p>
-                        <p className="text-xs text-muted-foreground">{appointment.contactEmail}</p>
+                        <p className="text-sm font-medium leading-none">
+                          {appointment.contactName}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {appointment.contactEmail}
+                        </p>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex flex-col">
                       <span className="text-sm">{appointment.date}</span>
-                      <span className="text-xs text-muted-foreground">{appointment.time}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {appointment.time}
+                      </span>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={getTypeBadgeVariant(appointment.type)}>{appointment.type}</Badge>
+                    <Badge
+                      className={`bg-white ${getTypeBadgeVariant(
+                        appointment.type
+                      )}`}
+                    >
+                      {appointment.type}
+                    </Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={getStatusBadgeVariant(appointment.status)}>{appointment.status}</Badge>
+                    <Badge
+                      className={`bg-white ${getStatusBadgeVariant(
+                        appointment.status
+                      )}`}
+                    >
+                      {appointment.status}
+                    </Badge>
                   </TableCell>
                   <TableCell>{appointment.location}</TableCell>
                   <TableCell className="text-right">
@@ -365,7 +472,9 @@ export function AppointmentList({ filter = "all" }) {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={() => handleViewDetails(appointment)}>
+                        <DropdownMenuItem
+                          onClick={() => handleViewDetails(appointment)}
+                        >
                           <Calendar className="mr-2 h-4 w-4" />
                           View Details
                         </DropdownMenuItem>
@@ -414,10 +523,14 @@ export function AppointmentList({ filter = "all" }) {
 
               <div className="space-y-4 py-4">
                 <div className="flex items-center">
-                  <Badge className="mr-2" variant={getStatusBadgeVariant(selectedAppointment.status)}>
+                  <Badge
+                    className={`mr-2 bg-white
+                    ${getStatusBadgeVariant(selectedAppointment.status)}`}
+                  >
                     {selectedAppointment.status}
                   </Badge>
-                  <Badge variant="outline">{selectedAppointment.type}</Badge>
+                  <Badge  className={`mr-2 bg-white
+                    ${getTypeBadgeVariant(selectedAppointment.type)}`}>{selectedAppointment.type}</Badge>
                 </div>
 
                 <div className="flex items-center space-x-4">
@@ -430,9 +543,15 @@ export function AppointmentList({ filter = "all" }) {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="font-medium">{selectedAppointment.contactName}</p>
-                    <p className="text-sm text-muted-foreground">{selectedAppointment.contactEmail}</p>
-                    <p className="text-sm text-muted-foreground">{selectedAppointment.contactPhone}</p>
+                    <p className="font-medium">
+                      {selectedAppointment.contactName}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {selectedAppointment.contactEmail}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {selectedAppointment.contactPhone}
+                    </p>
                   </div>
                 </div>
 
@@ -451,12 +570,14 @@ export function AppointmentList({ filter = "all" }) {
 
               <div className="flex justify-between">
                 <Button variant="outline">Edit</Button>
-                {selectedAppointment.status !== "canceled" && <Button variant="destructive">Cancel Appointment</Button>}
+                {selectedAppointment.status !== "canceled" && (
+                  <Button variant="destructive">Cancel Appointment</Button>
+                )}
               </div>
             </>
           )}
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }

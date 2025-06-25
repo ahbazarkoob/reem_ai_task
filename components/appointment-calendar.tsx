@@ -84,6 +84,42 @@ const appointments = [
   },
 ]
 
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case "confirmed":
+      return "text-[#40BF40] border-[#40BF40]"; // Green
+    case "tentative":
+      return "text-[#66FFB2] border-[#66FFB2]"; // Mint Green
+    case "consultation":
+      return "text-[#4DB8FF] border-[#4DB8FF]"; // Blue
+    case "no show":
+      return "text-[#FF3333] border-[#FF3333]"; // Red
+    case "scheduled":
+      return "text-[#9933FF] border-[#9933FF]"; // Purple
+    case "review":
+      return "text-[#F59E0B] border-[#F59E0B]"; // Amber/Orange
+    default:
+      return "text-[#6B7280] border-[#6B7280]"; // Gray
+  }
+};
+
+const getEventColor = (status: string) => {
+  switch (status) {
+    case "consultation":
+      return "text-[#3b82f6] border-[#3b82f6]"; // Blue
+    case "follow-up":
+      return "text-[#10b981] border-[#10b981]"; // Green
+    case "demo":
+      return "text-[#8b5cf6] border-[#8b5cf6]"; // Purple
+    case "review":
+      return "text-[#9933FF] border-[#9933FF]"; // Amber
+    case "onboarding":
+      return "text-[#ec4899] border-[#ec4899]"; // Pink
+    default:
+      return "text-[#6B7280] border-[#6B7280]"; // Gray
+  }
+};
+
 // Event styling based on appointment type
 const eventStyleGetter = (event) => {
   let backgroundColor = "#3b82f6" // Default blue
@@ -219,7 +255,7 @@ export function AppointmentCalendar({ view = "month" }) {
                   <div className="text-sm">{appointment.contactName}</div>
                 </div>
                 <div>
-                  <Badge variant={appointment.status === "confirmed" ? "default" : "outline"}>
+                  <Badge className={`bg-white ${getStatusColor(appointment.status)}`}>
                     {appointment.status}
                   </Badge>
                 </div>
@@ -267,10 +303,10 @@ export function AppointmentCalendar({ view = "month" }) {
 
               <div className="space-y-4 py-4">
                 <div className="flex items-center">
-                  <Badge className="mr-2" variant={selectedAppointment.status === "confirmed" ? "default" : "outline"}>
+                  <Badge className={`bg-white ${getStatusColor(selectedAppointment.status)}`}>
                     {selectedAppointment.status}
                   </Badge>
-                  <Badge variant="outline">{selectedAppointment.type}</Badge>
+                  <Badge className={`bg-white ${getStatusColor(selectedAppointment.type)}`}>{selectedAppointment.type}</Badge>
                 </div>
 
                 <div className="flex items-center space-x-4">

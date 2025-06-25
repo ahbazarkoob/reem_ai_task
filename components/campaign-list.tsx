@@ -185,15 +185,15 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-500";
+        return "text-[#40BF40] border-[#40BF40]";
       case "scheduled":
-        return "bg-blue-500";
+        return "text-[#9933FF] border-[#9933FF]";
       case "paused":
-        return "bg-yellow-500";
+        return "text-[#FF3333] border-[#FF3333]";
       case "completed":
-        return "bg-gray-500";
+        return "text-[#4DB8FF] border-[#4DB8FF]";
       default:
-        return "bg-gray-500";
+        return "text-[#6B7280] border-[#6B7280]";
     }
   };
 
@@ -271,13 +271,8 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
                   </div>
                   <h3 className="font-medium truncate">{campaign.name}</h3>
                   <Badge
-                    variant={
-                      campaign.status === "active"
-                        ? "default"
-                        : campaign.status === "paused"
-                        ? "outline"
-                        : "secondary"
-                    }
+                    className={`bg-white ${
+                     getStatusColor(campaign.status)}`}
                   >
                     {campaign.status}
                   </Badge>

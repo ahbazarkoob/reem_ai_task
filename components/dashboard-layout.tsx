@@ -58,9 +58,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { usePathname } from "next/navigation";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [workspace, setWorkspace] = useState("Acme Inc");
+  const pathName = usePathname();
 
   const workspaces = [
     { id: "acme", name: "Acme Inc" },
@@ -68,34 +70,147 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     { id: "initech", name: "Initech" },
   ];
 
+  // const campaigns = [
+  //   { id: "c1", name: "Q2 Outreach", type: "email" },
+  //   { id: "c2", name: "Customer Feedback", type: "call" },
+  //   { id: "c3", name: "Appointment Reminders", type: "sms" },
+  // ];
+
+  // const branches = [
+  //   { id: "b1", name: "Headquarters" },
+  //   { id: "b2", name: "West Region" },
+  //   { id: "b3", name: "East Region" },
+  // ];
+
   const campaigns = [
-    { id: "c1", name: "Q2 Outreach", type: "email" },
-    { id: "c2", name: "Customer Feedback", type: "call" },
-    { id: "c3", name: "Appointment Reminders", type: "sms" },
+    {
+      id: "call_campaign",
+      tooltip: "Call Campaigns",
+      href: "/campaigns/call",
+      label: "Call Campaigns",
+      icon: <Phone className="h-4 w-4" />,
+    },
+    {
+      id: "sms_campaign",
+      tooltip: "SMS Campaigns",
+      href: "/campaigns/sms",
+      label: "SMS Campaigns",
+      icon: <MessageSquare className="h-4 w-4" />,
+    },
+    {
+      id: "email_campaign",
+      tooltip: "Email Campaigns",
+      href: "/campaigns/email",
+      label: "Email Campaigns",
+      icon: <Mail className="h-4 w-4" />,
+    },
+    {
+      id: "create_campaign",
+      tooltip: "Create Campaigns",
+      href: "/campaigns/create",
+      label: "Create Campaigns",
+      icon: <Plus className="h-4 w-4" />,
+    },
   ];
 
-  const branches = [
-    { id: "b1", name: "Headquarters" },
-    { id: "b2", name: "West Region" },
-    { id: "b3", name: "East Region" },
+  const appointments = [
+    {
+      id: "calendar_view",
+      tooltip: "Calendar View",
+      href: "/appointments/calendar",
+      label: "Calendar View",
+      icon: <CalendarClock className="h-4 w-4" />,
+    },
+    {
+      id: "appointment_list",
+      tooltip: "Appointment List",
+      href: "/appointments/list",
+      label: "Appointment List",
+      icon: <ListTodo className="h-4 w-4" />,
+    },
+    {
+      id: "schedule_ppointment",
+      tooltip: "Schedule Appointment",
+      href: "/appointments/schedule",
+      label: "Schedule Appointment",
+      icon: <CalendarPlus className="h-4 w-4" />,
+    },
   ];
+
+  const contacts = [
+    {
+      id: "contact_lists",
+      tooltip: "Contact Lists",
+      href: "/contacts",
+      label: "Contact Lists",
+      icon: <Users className="h-4 w-4" />,
+    },
+    {
+      id: "import_contacts",
+      tooltip: "Import Contacts",
+      href: "/contacts/import",
+      label: "Import Contacts",
+      icon: <Upload className="h-4 w-4" />,
+    },
+  ];
+
+  const settings = [
+    {
+      id: "company_settings",
+      tooltip: "Company Settings",
+      href: "/settings/company",
+      label: "Company Settings",
+      icon: <Building className="h-4 w-4" />,
+    },
+    {
+      id: "user_management",
+      tooltip: "User & Role Management",
+      href: "/settings/users",
+      label: "User & Role Management",
+      icon: <UserCog className="h-4 w-4" />,
+    },
+  ];
+
+  const getMenuItemClass = (path: string) =>
+    pathName === path ? "bg-accent text-foreground" : "";
+
+  const renderMenuItem = (
+    href: string,
+    icon: React.ReactNode,
+    label: string,
+    tooltip: string,
+    id: string
+  ) => (
+    <SidebarMenuItem id={id}>
+      <SidebarMenuButton
+        tooltip={tooltip}
+        className={getMenuItemClass(href)}
+        asChild
+      >
+        <a href={href}>
+          {icon}
+          <span>{label}</span>
+        </a>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
 
   return (
     <SidebarProvider>
       <div className="flex h-screen w-full overflow-hidden bg-background">
         <Sidebar variant="sidebar" collapsible="icon">
           <SidebarHeader className="border-b bg-primary text-primary-foreground px-2 py-3">
-              <SidebarMenu>
-                <SidebarMenuButton
-                  className="flex items-center gap-2 flex-row hover:bg-primary hover:text-primary-foreground"
-                  asChild
-                >
-                  <a href="/">
-                    <Bot className="h-6 w-6" />
-                    <span className="font-bold text-lg">Reem AI</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenu>
+            <SidebarMenu>
+              <SidebarMenuButton
+                className="flex items-center gap-2 flex-row hover:bg-primary hover:text-primary-foreground"
+                asChild
+              >
+                <a href="/">
+                  <Bot className="h-6 w-6" />
+                  <span className="font-bold text-lg">Reem AI</span>
+                </a>
+              </SidebarMenuButton>
+            </SidebarMenu>
           </SidebarHeader>
           <SidebarContent className="pt-4">
             {/* 1. Dashboard Overview */}
@@ -117,41 +232,15 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <SidebarGroupLabel>Campaigns</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Call Campaigns" asChild>
-                      <a href="/campaigns/call">
-                        <Phone className="h-4 w-4" />
-                        <span>Call Campaigns</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="SMS Campaigns" asChild>
-                      <a href="/campaigns/sms">
-                        <MessageSquare className="h-4 w-4" />
-                        <span>SMS Campaigns</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Email Campaigns" asChild>
-                      <a href="/campaigns/email">
-                        <Mail className="h-4 w-4" />
-                        <span>Email Campaigns</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Create Campaign" asChild>
-                      <a href="/campaigns/create">
-                        <Plus className="h-4 w-4" />
-                        <span>Create Campaign</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  {campaigns.map((campaign) =>
+                    renderMenuItem(
+                      campaign.href,
+                      campaign.icon,
+                      campaign.label,
+                      campaign.tooltip,
+                      campaign.id
+                    )
+                  )}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -161,32 +250,15 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <SidebarGroupLabel>Appointments</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Calendar View" asChild>
-                      <a href="/appointments/calendar">
-                        <CalendarClock className="h-4 w-4" />
-                        <span>Calendar View</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Appointment List" asChild>
-                      <a href="/appointments/list">
-                        <ListTodo className="h-4 w-4" />
-                        <span>Appointment List</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Schedule Appointment" asChild>
-                      <a href="/appointments/schedule">
-                        <CalendarPlus className="h-4 w-4" />
-                        <span>Schedule Appointment</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  {appointments.map((appointment) =>
+                    renderMenuItem(
+                      appointment.href,
+                      appointment.icon,
+                      appointment.label,
+                      appointment.tooltip,
+                      appointment.id
+                    )
+                  )}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -196,23 +268,15 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <SidebarGroupLabel>Contacts</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Contact Lists" asChild>
-                      <a href="/contacts">
-                        <Users className="h-4 w-4" />
-                        <span>Contact Lists</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Import Contacts" asChild>
-                      <a href="/contacts/import">
-                        <Upload className="h-4 w-4" />
-                        <span>Import Contacts</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  {contacts.map((contact) =>
+                    renderMenuItem(
+                      contact.href,
+                      contact.icon,
+                      contact.label,
+                      contact.tooltip,
+                      contact.id
+                    )
+                  )}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -222,19 +286,26 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <SidebarGroupLabel>Monitoring</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Agent Status" asChild>
-                      <a href="/agents/status">
-                        <Activity className="h-4 w-4" />
-                        <span>AI Agent Status</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  {renderMenuItem(
+                    "/agents/status",
+                    <Activity className="h-4 w-4" />,
+                    "AI Agent Status",
+                    "Agent Status",
+                    "agent_status"
+                  )}
 
                   <Collapsible className="w-full">
                     <SidebarMenuItem>
                       <CollapsibleTrigger asChild>
-                        <SidebarMenuButton tooltip="Call Records">
+                        <SidebarMenuButton
+                          tooltip="Call Records"
+                          className={`${
+                            pathName === "/calls/inbound" ||
+                            pathName === "/calls/outbound"
+                              ? "bg-accent text-foreground"
+                              : ""
+                          }`}
+                        >
                           <PhoneCall className="h-4 w-4" />
                           <span>Call Records</span>
                           <ChevronDown className="ml-auto h-4 w-4" />
@@ -258,7 +329,15 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                   </Collapsible>
 
                   <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Analytics & Reports" asChild>
+                    <SidebarMenuButton
+                      tooltip="Analytics & Reports"
+                      className={`${
+                        pathName === "analytics"
+                          ? "bg-accent text-foreground"
+                          : ""
+                      }`}
+                      asChild
+                    >
                       <a href="/analytics">
                         <BarChart className="h-4 w-4" />
                         <span>Analytics & Reports</span>
@@ -274,23 +353,15 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <SidebarGroupLabel>Settings</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="Company Settings" asChild>
-                      <a href="/settings/company">
-                        <Building className="h-4 w-4" />
-                        <span>Company Settings</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-
-                  <SidebarMenuItem>
-                    <SidebarMenuButton tooltip="User & Role Management" asChild>
-                      <a href="/settings/users">
-                        <UserCog className="h-4 w-4" />
-                        <span>User & Role Management</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  {settings.map((setting) =>
+                    renderMenuItem(
+                      setting.href,
+                      setting.icon,
+                      setting.label,
+                      setting.tooltip,
+                      setting.id
+                    )
+                  )}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -298,23 +369,22 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
           <SidebarFooter className="border-t">
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Settings" asChild>
-                  <a href="/settings">
-                    <Settings className="h-4 w-4" />
-                    <span>Settings</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {renderMenuItem(
+                "/settings",
+                <Settings className="h-4 w-4" />,
+                "Settings",
+                "Settings",
+                "settings"
+              )}
             </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
 
         <div className="flex flex-col flex-1 overflow-hidden">
           <header className="border-b h-14 flex items-center px-4">
-            <SidebarTrigger className="mr-2" />
+            <SidebarTrigger className="mr-2 text-primary" />
             <div className="flex-1">
-              <h1 className="text-xl font-semibold">Reem AI</h1>
+              <h1 className="text-xl font-semibold text-primary">Reem AI</h1>
             </div>
             <div className="flex items-center gap-2">
               <DropdownMenu>
@@ -327,7 +397,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                     <Avatar className="h-5 w-5">
                       <AvatarImage src="/placeholder.svg?height=32&width=32" />
                       <AvatarFallback>
-                        {workspace.substring(0, 2)}
+                        {workspace ? workspace.substring(0, 2) : "NA"}
                       </AvatarFallback>
                     </Avatar>
                     <span className="font-medium">{workspace}</span>

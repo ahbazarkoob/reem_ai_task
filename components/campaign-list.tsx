@@ -38,6 +38,7 @@ interface CampaignListProps {
 
 export function CampaignList({ showFilters = false, type }: CampaignListProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [typeFilter, setTypeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("newest");
 
@@ -142,7 +143,9 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
 
   // Filter campaigns based on type, search query, and status
   const filteredCampaigns = allCampaigns.filter((campaign) => {
-    const matchesType = type ? campaign.type === type : true;
+    const matchesType = type
+      ? campaign.type === type
+      : typeFilter === "all" || campaign.type === typeFilter;
     const matchesSearch = campaign.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
@@ -212,7 +215,7 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
             />
           </div>
           {!type && (
-            <Select defaultValue="all">
+            <Select defaultValue={typeFilter} onValueChange={setTypeFilter}>
               <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Campaign Type" />
               </SelectTrigger>
@@ -271,8 +274,7 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
                   </div>
                   <h3 className="font-medium truncate">{campaign.name}</h3>
                   <Badge
-                    className={`bg-white ${
-                     getStatusColor(campaign.status)}`}
+                    className={`bg-white ${getStatusColor(campaign.status)}`}
                   >
                     {campaign.status}
                   </Badge>

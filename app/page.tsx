@@ -1,11 +1,24 @@
-import type React from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CalendarClock, Mail, MessageSquare, Phone, type TrendingUp } from "lucide-react"
-import { CampaignList } from "@/components/campaign-list"
-import { OverviewMetrics } from "@/components/overview-metrics"
-import { RecentActivity } from "@/components/recent-activity"
+import type React from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  CalendarClock,
+  Mail,
+  MessageSquare,
+  Phone,
+  type TrendingUp,
+} from "lucide-react";
+import { CampaignList } from "@/components/campaign-list";
+import { OverviewMetrics } from "@/components/overview-metrics";
+import { RecentActivity } from "@/components/recent-activity";
 
 export default function Dashboard() {
   return (
@@ -26,9 +39,24 @@ export default function Dashboard() {
 
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="campaigns">Campaigns</TabsTrigger>
-          <TabsTrigger value="appointments">Appointments</TabsTrigger>
+          <TabsTrigger
+            value="overview"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Overview
+          </TabsTrigger>
+          <TabsTrigger
+            value="campaigns"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Campaigns
+          </TabsTrigger>
+          <TabsTrigger
+            value="appointments"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Appointments
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
@@ -38,7 +66,9 @@ export default function Dashboard() {
             <Card className="lg:col-span-4">
               <CardHeader>
                 <CardTitle>Active Campaigns</CardTitle>
-                <CardDescription>Your currently running communication campaigns</CardDescription>
+                <CardDescription>
+                  Your currently running communication campaigns
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <CampaignList />
@@ -53,7 +83,9 @@ export default function Dashboard() {
             <Card className="lg:col-span-3">
               <CardHeader>
                 <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Latest interactions across all channels</CardDescription>
+                <CardDescription>
+                  Latest interactions across all channels
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <RecentActivity />
@@ -71,34 +103,46 @@ export default function Dashboard() {
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Email Campaigns</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Email Campaigns
+                </CardTitle>
                 <Mail className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">12</div>
-                <p className="text-xs text-muted-foreground">3 active, 9 completed</p>
+                <p className="text-xs text-muted-foreground">
+                  3 active, 9 completed
+                </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Call Campaigns</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Call Campaigns
+                </CardTitle>
                 <Phone className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">8</div>
-                <p className="text-xs text-muted-foreground">2 active, 6 completed</p>
+                <p className="text-xs text-muted-foreground">
+                  2 active, 6 completed
+                </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">SMS Campaigns</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  SMS Campaigns
+                </CardTitle>
                 <MessageSquare className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">5</div>
-                <p className="text-xs text-muted-foreground">1 active, 4 completed</p>
+                <p className="text-xs text-muted-foreground">
+                  1 active, 4 completed
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -110,19 +154,26 @@ export default function Dashboard() {
           <Card>
             <CardHeader>
               <CardTitle>Upcoming Appointments</CardTitle>
-              <CardDescription>Scheduled appointments across all branches</CardDescription>
+              <CardDescription>
+                Scheduled appointments across all branches
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">Appointment calendar view will be displayed here</p>
+              <p className="text-sm text-muted-foreground">
+                Appointment calendar view will be displayed here
+              </p>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 
-function Plus({ className, ...props }: React.ComponentProps<typeof TrendingUp>) {
+function Plus({
+  className,
+  ...props
+}: React.ComponentProps<typeof TrendingUp>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -138,5 +189,5 @@ function Plus({ className, ...props }: React.ComponentProps<typeof TrendingUp>) 
       <path d="M5 12h14" />
       <path d="M12 5v14" />
     </svg>
-  )
+  );
 }

@@ -5,7 +5,6 @@ import { Home } from "lucide-react"
 
 export default function BillingPage() {
   return (
-    <DashboardLayout>
       <div className="space-y-6">
         <div>
           <Breadcrumb>
@@ -28,6 +27,5 @@ export default function BillingPage() {
         </div>
         <BillingManagement />
       </div>
-    </DashboardLayout>
   )
 }

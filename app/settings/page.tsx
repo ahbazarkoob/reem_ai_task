@@ -5,7 +5,6 @@ import { Home } from "lucide-react"
 
 export default function SettingsPage() {
   return (
-    <DashboardLayout>
       <div className="space-y-6">
         <div>
           <Breadcrumb>
@@ -24,6 +23,5 @@ export default function SettingsPage() {
         </div>
         <SettingsOverview />
       </div>
-    </DashboardLayout>
   )
 }

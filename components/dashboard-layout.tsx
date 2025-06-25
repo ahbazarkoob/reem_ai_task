@@ -181,7 +181,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     tooltip: string,
     id: string
   ) => (
-    <SidebarMenuItem id={id}>
+    <SidebarMenuItem key={id}>
       <SidebarMenuButton
         tooltip={tooltip}
         className={getMenuItemClass(href)}
@@ -292,6 +292,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                     "AI Agent Status",
                     "Agent Status",
                     "agent_status"
+
                   )}
 
                   <Collapsible className="w-full">

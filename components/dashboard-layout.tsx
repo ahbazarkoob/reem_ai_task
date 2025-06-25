@@ -292,7 +292,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                     "AI Agent Status",
                     "Agent Status",
                     "agent_status"
-
                   )}
 
                   <Collapsible className="w-full">
@@ -391,12 +390,13 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
+                  
                     variant="outline"
                     size="sm"
                     className="flex items-center gap-2"
                   >
                     <Avatar className="h-5 w-5">
-                      <AvatarImage src="/placeholder.svg?height=32&width=32" />
+                      <AvatarImage src="/placeholder-user.png?height=32&width=32" />
                       <AvatarFallback>
                         {workspace ? workspace.substring(0, 2) : "NA"}
                       </AvatarFallback>
@@ -442,7 +442,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="cursor-pointer">
-                    <AvatarImage src="/placeholder.svg?height=32&width=32" />
+                    <AvatarImage src="/placeholder-user.png?height=32&width=32" />
                     <AvatarFallback>RA</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>

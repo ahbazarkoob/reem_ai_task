@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -18,7 +18,8 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
-} from "@/components/ui/sidebar"
+  SidebarHeader,
+} from "@/components/ui/sidebar";
 import {
   Activity,
   Building,
@@ -41,9 +42,9 @@ import {
   User,
   LogOut,
   HelpCircle,
-} from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+} from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -51,39 +52,51 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+} from "@/components/ui/dropdown-menu";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const [workspace, setWorkspace] = useState("Acme Inc")
+  const [workspace, setWorkspace] = useState("Acme Inc");
 
   const workspaces = [
     { id: "acme", name: "Acme Inc" },
     { id: "globex", name: "Globex Corporation" },
     { id: "initech", name: "Initech" },
-  ]
+  ];
 
   const campaigns = [
     { id: "c1", name: "Q2 Outreach", type: "email" },
     { id: "c2", name: "Customer Feedback", type: "call" },
     { id: "c3", name: "Appointment Reminders", type: "sms" },
-  ]
+  ];
 
   const branches = [
     { id: "b1", name: "Headquarters" },
     { id: "b2", name: "West Region" },
     { id: "b3", name: "East Region" },
-  ]
+  ];
 
   return (
     <SidebarProvider>
       <div className="flex h-screen w-full overflow-hidden bg-background">
         <Sidebar variant="sidebar" collapsible="icon">
-          <div className="flex items-center gap-2 px-4 py-3 border-b bg-primary text-primary-foreground">
-            <Bot className="h-6 w-6" />
-            <span className="font-bold text-lg">Reem AI</span>
-          </div>
-
+          <SidebarHeader className="border-b bg-primary text-primary-foreground px-2 py-3">
+              <SidebarMenu>
+                <SidebarMenuButton
+                  className="flex items-center gap-2 flex-row hover:bg-primary hover:text-primary-foreground"
+                  asChild
+                >
+                  <a href="/">
+                    <Bot className="h-6 w-6" />
+                    <span className="font-bold text-lg">Reem AI</span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenu>
+          </SidebarHeader>
           <SidebarContent className="pt-4">
             {/* 1. Dashboard Overview */}
             <SidebarGroup>
@@ -306,10 +319,16 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             <div className="flex items-center gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-2"
+                  >
                     <Avatar className="h-5 w-5">
                       <AvatarImage src="/placeholder.svg?height=32&width=32" />
-                      <AvatarFallback>{workspace.substring(0, 2)}</AvatarFallback>
+                      <AvatarFallback>
+                        {workspace.substring(0, 2)}
+                      </AvatarFallback>
                     </Avatar>
                     <span className="font-medium">{workspace}</span>
                     <ChevronDown className="h-4 w-4" />
@@ -319,9 +338,15 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                   <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   {workspaces.map((ws) => (
-                    <DropdownMenuItem key={ws.id} onClick={() => setWorkspace(ws.name)} className="cursor-pointer">
+                    <DropdownMenuItem
+                      key={ws.id}
+                      onClick={() => setWorkspace(ws.name)}
+                      className="cursor-pointer"
+                    >
                       <Avatar className="h-5 w-5 mr-2">
-                        <AvatarFallback>{ws.name.substring(0, 2)}</AvatarFallback>
+                        <AvatarFallback>
+                          {ws.name.substring(0, 2)}
+                        </AvatarFallback>
                       </Avatar>
                       {ws.name}
                     </DropdownMenuItem>
@@ -378,5 +403,5 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
     </SidebarProvider>
-  )
+  );
 }

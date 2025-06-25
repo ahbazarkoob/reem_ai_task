@@ -1,88 +1,113 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Mic, MicOff, Phone, PhoneOff, User, Volume2, VolumeX } from "lucide-react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Mic,
+  MicOff,
+  Phone,
+  PhoneOff,
+  User,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function CallInterface() {
-  const [callStatus, setCallStatus] = useState<"idle" | "calling" | "connected" | "ended">("idle")
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [callDuration, setCallDuration] = useState(0)
-  const [isMuted, setIsMuted] = useState(false)
-  const [isSpeakerOn, setIsSpeakerOn] = useState(false)
+  const [callStatus, setCallStatus] = useState<
+    "idle" | "calling" | "connected" | "ended"
+  >("idle");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [callDuration, setCallDuration] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isSpeakerOn, setIsSpeakerOn] = useState(false);
   const [activeContact, setActiveContact] = useState<{
-    name: string
-    number: string
-    avatar?: string
-  } | null>(null)
+    name: string;
+    number: string;
+    avatar?: string;
+  } | null>(null);
 
   // Simulate making a call
   const handleMakeCall = () => {
-    if (!phoneNumber && !activeContact) return
+    if (!phoneNumber && !activeContact) return;
 
-    setCallStatus("calling")
+    setCallStatus("calling");
 
     // If we have an active contact, use their info
     if (!activeContact && phoneNumber) {
       setActiveContact({
         name: "Unknown",
         number: phoneNumber,
-      })
+      });
     }
 
     // Simulate call connecting after 2 seconds
     setTimeout(() => {
-      setCallStatus("connected")
-      startCallTimer()
-    }, 2000)
-  }
+      setCallStatus("connected");
+      startCallTimer();
+    }, 2000);
+  };
 
   // Simulate ending a call
   const handleEndCall = () => {
-    setCallStatus("ended")
-    clearCallTimer()
+    setCallStatus("ended");
+    clearCallTimer();
 
     // Reset after 2 seconds
     setTimeout(() => {
-      setCallStatus("idle")
-      setCallDuration(0)
+      setCallStatus("idle");
+      setCallDuration(0);
       if (!activeContact) {
-        setPhoneNumber("")
+        setPhoneNumber("");
       }
-    }, 2000)
-  }
+    }, 2000);
+  };
 
   // Call timer functionality
-  let timerInterval: NodeJS.Timeout
+  let timerInterval: NodeJS.Timeout;
   const startCallTimer = () => {
     timerInterval = setInterval(() => {
-      setCallDuration((prev) => prev + 1)
-    }, 1000)
-  }
+      setCallDuration((prev) => prev + 1);
+    }, 1000);
+  };
 
   const clearCallTimer = () => {
-    clearInterval(timerInterval)
-  }
+    clearInterval(timerInterval);
+  };
 
   // Format seconds to mm:ss
   const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
-  }
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
   // Handle dialer input
   const handleDialerInput = (value: string) => {
-    setPhoneNumber((prev) => prev + value)
-  }
+    setPhoneNumber((prev) => prev + value);
+  };
 
   // Dialer buttons
-  const dialerButtons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"]
+  const dialerButtons = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "*",
+    "0",
+    "#",
+  ];
 
   return (
     <div className="flex flex-col space-y-4">
@@ -91,13 +116,20 @@ export function CallInterface() {
         {activeContact ? (
           <>
             <Avatar className="h-16 w-16 mb-2">
-              <AvatarImage src={activeContact.avatar || "/placeholder.svg?height=64&width=64"} />
+              <AvatarImage
+                src={
+                  activeContact.avatar ||
+                  "/placeholder-user.png?height=64&width=64"
+                }
+              />
               <AvatarFallback>
                 <User className="h-8 w-8" />
               </AvatarFallback>
             </Avatar>
             <h3 className="text-xl font-medium">{activeContact.name}</h3>
-            <p className="text-sm text-muted-foreground">{activeContact.number}</p>
+            <p className="text-sm text-muted-foreground">
+              {activeContact.number}
+            </p>
           </>
         ) : (
           <Input
@@ -112,14 +144,20 @@ export function CallInterface() {
 
         {callStatus !== "idle" && (
           <Badge
-            variant={callStatus === "connected" ? "default" : callStatus === "calling" ? "outline" : "destructive"}
+            variant={
+              callStatus === "connected"
+                ? "default"
+                : callStatus === "calling"
+                ? "outline"
+                : "destructive"
+            }
             className="mt-2"
           >
             {callStatus === "connected"
               ? `Connected (${formatDuration(callDuration)})`
               : callStatus === "calling"
-                ? "Calling..."
-                : "Call Ended"}
+              ? "Calling..."
+              : "Call Ended"}
           </Badge>
         )}
       </div>
@@ -154,26 +192,40 @@ export function CallInterface() {
               <Button
                 variant="outline"
                 size="icon"
-                className={`h-12 w-12 rounded-full ${isMuted ? "bg-red-100" : ""}`}
+                className={`h-12 w-12 rounded-full ${
+                  isMuted ? "bg-red-100" : ""
+                }`}
                 onClick={() => setIsMuted(!isMuted)}
                 disabled={callStatus !== "connected"}
               >
-                {isMuted ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+                {isMuted ? (
+                  <MicOff className="h-5 w-5" />
+                ) : (
+                  <Mic className="h-5 w-5" />
+                )}
               </Button>
 
               <Button
                 variant="outline"
                 size="icon"
-                className={`h-12 w-12 rounded-full ${isSpeakerOn ? "bg-blue-100" : ""}`}
+                className={`h-12 w-12 rounded-full ${
+                  isSpeakerOn ? "bg-blue-100" : ""
+                }`}
                 onClick={() => setIsSpeakerOn(!isSpeakerOn)}
                 disabled={callStatus !== "connected"}
               >
-                {isSpeakerOn ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+                {isSpeakerOn ? (
+                  <Volume2 className="h-5 w-5" />
+                ) : (
+                  <VolumeX className="h-5 w-5" />
+                )}
               </Button>
             </div>
 
             <div className="text-center text-sm text-muted-foreground">
-              {callStatus === "connected" && <p>Call in progress - {formatDuration(callDuration)}</p>}
+              {callStatus === "connected" && (
+                <p>Call in progress - {formatDuration(callDuration)}</p>
+              )}
             </div>
           </div>
         </TabsContent>
@@ -192,11 +244,15 @@ export function CallInterface() {
             <Phone className="h-6 w-6" />
           </Button>
         ) : (
-          <Button variant="destructive" className="h-16 w-16 rounded-full" onClick={handleEndCall}>
+          <Button
+            variant="destructive"
+            className="h-16 w-16 rounded-full"
+            onClick={handleEndCall}
+          >
             <PhoneOff className="h-6 w-6" />
           </Button>
         )}
       </div>
     </div>
-  )
+  );
 }

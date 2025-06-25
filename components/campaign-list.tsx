@@ -1,13 +1,26 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Mail, MessageSquare, MoreHorizontal, Phone, Search } from "lucide-react"
-import { Progress } from "@/components/ui/progress"
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Mail,
+  MessageSquare,
+  MoreHorizontal,
+  MoreVertical,
+  Phone,
+  Search,
+} from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,18 +28,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import Link from "next/link"
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 interface CampaignListProps {
-  showFilters?: boolean
-  type?: string
+  showFilters?: boolean;
+  type?: string;
 }
 
 export function CampaignList({ showFilters = false, type }: CampaignListProps) {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
-  const [sortOrder, setSortOrder] = useState("newest")
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [sortOrder, setSortOrder] = useState("newest");
 
   const allCampaigns = [
     {
@@ -125,61 +138,64 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
       createdAt: "April 25, 2025",
       aiAgent: "Support Assistant",
     },
-  ]
+  ];
 
   // Filter campaigns based on type, search query, and status
   const filteredCampaigns = allCampaigns.filter((campaign) => {
-    const matchesType = type ? campaign.type === type : true
-    const matchesSearch = campaign.name.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesStatus = statusFilter === "all" || campaign.status === statusFilter
-    return matchesType && matchesSearch && matchesStatus
-  })
+    const matchesType = type ? campaign.type === type : true;
+    const matchesSearch = campaign.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || campaign.status === statusFilter;
+    return matchesType && matchesSearch && matchesStatus;
+  });
 
   // Sort campaigns
   const sortedCampaigns = [...filteredCampaigns].sort((a, b) => {
     if (sortOrder === "newest") {
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     } else if (sortOrder === "oldest") {
-      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     } else if (sortOrder === "name-asc") {
-      return a.name.localeCompare(b.name)
+      return a.name.localeCompare(b.name);
     } else if (sortOrder === "name-desc") {
-      return b.name.localeCompare(a.name)
+      return b.name.localeCompare(a.name);
     } else if (sortOrder === "progress-high") {
-      return b.progress - a.progress
+      return b.progress - a.progress;
     } else if (sortOrder === "progress-low") {
-      return a.progress - b.progress
+      return a.progress - b.progress;
     }
-    return 0
-  })
+    return 0;
+  });
 
   const getTypeIcon = (type: string) => {
     switch (type) {
       case "email":
-        return <Mail className="h-4 w-4" />
+        return <Mail className="h-4 w-4" />;
       case "sms":
-        return <MessageSquare className="h-4 w-4" />
+        return <MessageSquare className="h-4 w-4" />;
       case "call":
-        return <Phone className="h-4 w-4" />
+        return <Phone className="h-4 w-4" />;
       default:
-        return <Mail className="h-4 w-4" />
+        return <Mail className="h-4 w-4" />;
     }
-  }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-500"
+        return "bg-green-500";
       case "scheduled":
-        return "bg-blue-500"
+        return "bg-blue-500";
       case "paused":
-        return "bg-yellow-500"
+        return "bg-yellow-500";
       case "completed":
-        return "bg-gray-500"
+        return "bg-gray-500";
       default:
-        return "bg-gray-500"
+        return "bg-gray-500";
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
@@ -243,14 +259,24 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <div
-                    className={`rounded-full p-1.5 ${campaign.type === "email" ? "bg-blue-100" : campaign.type === "sms" ? "bg-green-100" : "bg-purple-100"}`}
+                    className={`rounded-full p-1.5 ${
+                      campaign.type === "email"
+                        ? "bg-blue-100"
+                        : campaign.type === "sms"
+                        ? "bg-green-100"
+                        : "bg-purple-100"
+                    }`}
                   >
                     {getTypeIcon(campaign.type)}
                   </div>
                   <h3 className="font-medium truncate">{campaign.name}</h3>
                   <Badge
                     variant={
-                      campaign.status === "active" ? "default" : campaign.status === "paused" ? "outline" : "secondary"
+                      campaign.status === "active"
+                        ? "default"
+                        : campaign.status === "paused"
+                        ? "outline"
+                        : "secondary"
                     }
                   >
                     {campaign.status}
@@ -283,7 +309,7 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <MoreHorizontal className="h-4 w-4" />
+                      <MoreVertical className="h-4 w-4" />
                       <span className="sr-only">More</span>
                     </Button>
                   </DropdownMenuTrigger>
@@ -299,7 +325,9 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
                     ) : campaign.status === "paused" ? (
                       <DropdownMenuItem>Resume</DropdownMenuItem>
                     ) : null}
-                    <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+                    <DropdownMenuItem className="text-destructive">
+                      Delete
+                    </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -310,10 +338,12 @@ export function CampaignList({ showFilters = false, type }: CampaignListProps) {
         {sortedCampaigns.length === 0 && (
           <div className="text-center py-8 text-muted-foreground">
             <p>No campaigns found</p>
-            <p className="text-sm mt-2">Try adjusting your filters or create a new campaign</p>
+            <p className="text-sm mt-2">
+              Try adjusting your filters or create a new campaign
+            </p>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }

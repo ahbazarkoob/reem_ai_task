@@ -1,21 +1,30 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Phone, Search, User } from "lucide-react"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Phone, Search, User } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ContactSelectorProps {
-  variant: "recent" | "all"
-  onSelectContact?: (contact: any) => void
+  variant: "recent" | "all";
+  onSelectContact?: (contact: any) => void;
 }
 
-export function ContactSelector({ variant, onSelectContact }: ContactSelectorProps) {
-  const [searchQuery, setSearchQuery] = useState("")
+export function ContactSelector({
+  variant,
+  onSelectContact,
+}: ContactSelectorProps) {
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Sample contact data
   const allContacts = [
@@ -27,7 +36,7 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       company: "Acme Inc",
       lastContacted: "2 days ago",
       tags: ["customer", "priority"],
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c2",
@@ -37,7 +46,7 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       company: "Globex Corp",
       lastContacted: "1 week ago",
       tags: ["prospect"],
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c3",
@@ -47,7 +56,7 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       company: "Acme Inc",
       lastContacted: "3 days ago",
       tags: ["customer"],
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c4",
@@ -57,7 +66,7 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       company: "Initech",
       lastContacted: "Just now",
       tags: ["customer", "priority"],
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c5",
@@ -67,7 +76,7 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       company: "Globex Corp",
       lastContacted: "1 hour ago",
       tags: ["prospect"],
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c6",
@@ -77,7 +86,7 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       company: "Initech",
       lastContacted: "2 weeks ago",
       tags: ["customer"],
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c7",
@@ -87,12 +96,12 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       company: "Acme Inc",
       lastContacted: "1 month ago",
       tags: ["customer"],
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
-  ]
+  ];
 
   // Recent contacts (first 5)
-  const recentContacts = allContacts.slice(0, 5)
+  const recentContacts = allContacts.slice(0, 5);
 
   // Filter contacts based on search query
   const filteredContacts = allContacts.filter(
@@ -100,21 +109,24 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       contact.number.includes(searchQuery) ||
       contact.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      contact.company.toLowerCase().includes(searchQuery.toLowerCase()),
-  )
+      contact.company.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Contacts to display based on variant
-  const displayContacts = variant === "recent" ? recentContacts : filteredContacts
+  const displayContacts =
+    variant === "recent" ? recentContacts : filteredContacts;
 
   // Handle calling a contact
   const handleCallContact = (contact: any) => {
     if (onSelectContact) {
-      onSelectContact(contact)
+      onSelectContact(contact);
     } else {
       // Navigate to dialer with contact info
-      window.location.href = `/calls/outbound?contact=${encodeURIComponent(JSON.stringify(contact))}`
+      window.location.href = `/calls/outbound?contact=${encodeURIComponent(
+        JSON.stringify(contact)
+      )}`;
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
@@ -147,10 +159,15 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
       <ScrollArea className={variant === "all" ? "h-[400px]" : "h-[300px]"}>
         <div className="space-y-2">
           {displayContacts.map((contact) => (
-            <div key={contact.id} className="flex items-center justify-between p-3 rounded-md hover:bg-slate-50">
+            <div
+              key={contact.id}
+              className="flex items-center justify-between p-3 rounded-md hover:bg-slate-50"
+            >
               <div className="flex items-center gap-3">
                 <Avatar>
-                  <AvatarImage src={contact.avatar || "/placeholder.svg"} />
+                  <AvatarImage
+                    src={contact.avatar || "/placeholder-user.png"}
+                  />
                   <AvatarFallback>
                     <User className="h-4 w-4" />
                   </AvatarFallback>
@@ -158,16 +175,26 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
                 <div>
                   <h4 className="font-medium">{contact.name}</h4>
                   <div className="flex items-center gap-2">
-                    <p className="text-sm text-muted-foreground">{contact.number}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {contact.number}
+                    </p>
                     {variant === "recent" && (
-                      <span className="text-xs text-muted-foreground">• {contact.lastContacted}</span>
+                      <span className="text-xs text-muted-foreground">
+                        • {contact.lastContacted}
+                      </span>
                     )}
                   </div>
                   {variant === "all" && (
                     <div className="flex items-center gap-1 mt-1">
-                      <p className="text-xs text-muted-foreground">{contact.company}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {contact.company}
+                      </p>
                       {contact.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs py-0 h-5">
+                        <Badge
+                          key={tag}
+                          variant="outline"
+                          className="text-xs py-0 h-5"
+                        >
                           {tag}
                         </Badge>
                       ))}
@@ -195,5 +222,5 @@ export function ContactSelector({ variant, onSelectContact }: ContactSelectorPro
         </div>
       </ScrollArea>
     </div>
-  )
+  );
 }

@@ -1,5 +1,5 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Mail, MessageSquare, Phone } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Mail, MessageSquare, Phone } from "lucide-react";
 
 export function RecentActivity() {
   const activities = [
@@ -10,7 +10,7 @@ export function RecentActivity() {
       contact: {
         name: "John Smith",
         email: "john.smith@example.com",
-        avatar: "/placeholder.svg?height=32&width=32",
+        avatar: "/placeholder-user.png?height=32&width=32",
       },
       campaign: "Q2 Customer Outreach",
       time: "10 minutes ago",
@@ -22,7 +22,7 @@ export function RecentActivity() {
       contact: {
         name: "Sarah Johnson",
         email: "sarah.j@example.com",
-        avatar: "/placeholder.svg?height=32&width=32",
+        avatar: "/placeholder-user.png?height=32&width=32",
       },
       campaign: "Customer Feedback Survey",
       time: "25 minutes ago",
@@ -34,7 +34,7 @@ export function RecentActivity() {
       contact: {
         name: "Michael Brown",
         email: "m.brown@example.com",
-        avatar: "/placeholder.svg?height=32&width=32",
+        avatar: "/placeholder-user.png?height=32&width=32",
       },
       campaign: "Appointment Reminders",
       time: "1 hour ago",
@@ -46,7 +46,7 @@ export function RecentActivity() {
       contact: {
         name: "Emily Davis",
         email: "emily.d@example.com",
-        avatar: "/placeholder.svg?height=32&width=32",
+        avatar: "/placeholder-user.png?height=32&width=32",
       },
       campaign: "Q2 Customer Outreach",
       time: "2 hours ago",
@@ -58,25 +58,25 @@ export function RecentActivity() {
       contact: {
         name: "Robert Wilson",
         email: "r.wilson@example.com",
-        avatar: "/placeholder.svg?height=32&width=32",
+        avatar: "/placeholder-user.png?height=32&width=32",
       },
       campaign: "Customer Feedback Survey",
       time: "3 hours ago",
     },
-  ]
+  ];
 
   const getTypeIcon = (type: string) => {
     switch (type) {
       case "email":
-        return <Mail className="h-4 w-4" />
+        return <Mail className="h-4 w-4" />;
       case "sms":
-        return <MessageSquare className="h-4 w-4" />
+        return <MessageSquare className="h-4 w-4" />;
       case "call":
-        return <Phone className="h-4 w-4" />
+        return <Phone className="h-4 w-4" />;
       default:
-        return <Mail className="h-4 w-4" />
+        return <Mail className="h-4 w-4" />;
     }
-  }
+  };
 
   const getActionText = (type: string, action: string) => {
     switch (type) {
@@ -84,28 +84,33 @@ export function RecentActivity() {
         return action === "opened"
           ? "opened an email"
           : action === "clicked"
-            ? "clicked a link in an email"
-            : "received an email"
+          ? "clicked a link in an email"
+          : "received an email";
       case "sms":
-        return action === "replied" ? "replied to an SMS" : "received an SMS"
+        return action === "replied" ? "replied to an SMS" : "received an SMS";
       case "call":
         return action === "completed"
           ? "completed a call"
           : action === "scheduled"
-            ? "scheduled a call"
-            : "received a call"
+          ? "scheduled a call"
+          : "received a call";
       default:
-        return "interacted"
+        return "interacted";
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
       {activities.map((activity) => (
         <div key={activity.id} className="flex items-start gap-3">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={activity.contact.avatar || "/placeholder.svg"} alt={activity.contact.name} />
-            <AvatarFallback>{activity.contact.name.substring(0, 2)}</AvatarFallback>
+            <AvatarImage
+              src={activity.contact.avatar || "/placeholder-user.png"}
+              alt={activity.contact.name}
+            />
+            <AvatarFallback>
+              {activity.contact.name.substring(0, 2)}
+            </AvatarFallback>
           </Avatar>
 
           <div className="flex-1 space-y-1">
@@ -116,7 +121,13 @@ export function RecentActivity() {
             </p>
             <div className="flex items-center gap-2">
               <div
-                className={`rounded-full p-1 ${activity.type === "email" ? "bg-blue-100" : activity.type === "sms" ? "bg-green-100" : "bg-purple-100"}`}
+                className={`rounded-full p-1 ${
+                  activity.type === "email"
+                    ? "bg-blue-100"
+                    : activity.type === "sms"
+                    ? "bg-green-100"
+                    : "bg-purple-100"
+                }`}
               >
                 {getTypeIcon(activity.type)}
               </div>
@@ -126,5 +137,5 @@ export function RecentActivity() {
         </div>
       ))}
     </div>
-  )
+  );
 }

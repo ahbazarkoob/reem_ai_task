@@ -1,15 +1,26 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Download, Filter, Plus } from "lucide-react"
-import { Chart, ChartContainer } from "@/components/ui/chart"
-import { PieChart, Pie, ResponsiveContainer, Tooltip, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search, Download, Filter, Plus } from "lucide-react";
+import { Chart, ChartContainer } from "@/components/ui/chart";
+import {
+  PieChart,
+  Pie,
+  ResponsiveContainer,
+  Tooltip,
+  Cell,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 export function CampaignAudience() {
   // Sample data for charts
@@ -19,20 +30,20 @@ export function CampaignAudience() {
     { name: "35-44", value: 25, color: "#ec4899" },
     { name: "45-54", value: 20, color: "#f43f5e" },
     { name: "55+", value: 10, color: "#f59e0b" },
-  ]
+  ];
 
   const locationData = [
     { name: "West", value: 35, color: "#10b981" },
     { name: "East", value: 30, color: "#6366f1" },
     { name: "North", value: 20, color: "#f59e0b" },
     { name: "South", value: 15, color: "#ef4444" },
-  ]
+  ];
 
   const engagementData = [
     { segment: "High", value: 25 },
     { segment: "Medium", value: 45 },
     { segment: "Low", value: 30 },
-  ]
+  ];
 
   // Sample contacts data
   const contacts = [
@@ -44,7 +55,7 @@ export function CampaignAudience() {
       segment: "Premium",
       lastContact: "2 days ago",
       status: "Contacted",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c2",
@@ -54,7 +65,7 @@ export function CampaignAudience() {
       segment: "Standard",
       lastContact: "1 week ago",
       status: "Pending",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c3",
@@ -64,7 +75,7 @@ export function CampaignAudience() {
       segment: "Premium",
       lastContact: "3 days ago",
       status: "Responded",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c4",
@@ -74,7 +85,7 @@ export function CampaignAudience() {
       segment: "Standard",
       lastContact: "Just now",
       status: "Converted",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
     {
       id: "c5",
@@ -84,25 +95,25 @@ export function CampaignAudience() {
       segment: "Premium",
       lastContact: "1 hour ago",
       status: "Contacted",
-      avatar: "/placeholder.svg?height=40&width=40",
+      avatar: "/placeholder-user.png?height=40&width=40",
     },
-  ]
+  ];
 
   // Get status badge color
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Contacted":
-        return "bg-blue-100 text-blue-800"
+        return "bg-blue-100 text-blue-800";
       case "Responded":
-        return "bg-green-100 text-green-800"
+        return "bg-green-100 text-green-800";
       case "Converted":
-        return "bg-purple-100 text-purple-800"
+        return "bg-purple-100 text-purple-800";
       case "Pending":
-        return "bg-yellow-100 text-yellow-800"
+        return "bg-yellow-100 text-yellow-800";
       default:
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800";
     }
-  }
+  };
 
   return (
     <div className="space-y-6">
@@ -139,7 +150,9 @@ export function CampaignAudience() {
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        label={({ name, percent }) =>
+                          `${name}: ${(percent * 100).toFixed(0)}%`
+                        }
                       >
                         {demographicData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
@@ -172,7 +185,9 @@ export function CampaignAudience() {
                         outerRadius={80}
                         fill="#8884d8"
                         dataKey="value"
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        label={({ name, percent }) =>
+                          `${name}: ${(percent * 100).toFixed(0)}%`
+                        }
                       >
                         {locationData.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
@@ -227,7 +242,11 @@ export function CampaignAudience() {
                 <div className="flex gap-2">
                   <div className="relative">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input type="search" placeholder="Search contacts..." className="pl-8 w-[250px]" />
+                    <Input
+                      type="search"
+                      placeholder="Search contacts..."
+                      className="pl-8 w-[250px]"
+                    />
                   </div>
                   <Button variant="outline" size="sm">
                     <Plus className="mr-2 h-4 w-4" />
@@ -246,8 +265,12 @@ export function CampaignAudience() {
                     >
                       <div className="flex items-center gap-3">
                         <Avatar>
-                          <AvatarImage src={contact.avatar || "/placeholder.svg"} />
-                          <AvatarFallback>{contact.name.substring(0, 2)}</AvatarFallback>
+                          <AvatarImage
+                            src={contact.avatar || "/placeholder-user.png"}
+                          />
+                          <AvatarFallback>
+                            {contact.name.substring(0, 2)}
+                          </AvatarFallback>
                         </Avatar>
                         <div>
                           <h4 className="font-medium">{contact.name}</h4>
@@ -258,13 +281,18 @@ export function CampaignAudience() {
                           </div>
                           <div className="flex items-center gap-2 mt-1">
                             <Badge variant="outline">{contact.segment}</Badge>
-                            <Badge variant="outline" className={getStatusColor(contact.status)}>
+                            <Badge
+                              variant="outline"
+                              className={getStatusColor(contact.status)}
+                            >
                               {contact.status}
                             </Badge>
                           </div>
                         </div>
                       </div>
-                      <div className="text-sm text-muted-foreground">Last contacted: {contact.lastContact}</div>
+                      <div className="text-sm text-muted-foreground">
+                        Last contacted: {contact.lastContact}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -278,7 +306,9 @@ export function CampaignAudience() {
             <CardContent className="p-6">
               <div className="text-center py-8 text-muted-foreground">
                 <p>Showing contacts with "Contacted" status</p>
-                <p className="text-sm mt-2">Filter applied: Status = Contacted</p>
+                <p className="text-sm mt-2">
+                  Filter applied: Status = Contacted
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -289,7 +319,9 @@ export function CampaignAudience() {
             <CardContent className="p-6">
               <div className="text-center py-8 text-muted-foreground">
                 <p>Showing contacts with "Responded" status</p>
-                <p className="text-sm mt-2">Filter applied: Status = Responded</p>
+                <p className="text-sm mt-2">
+                  Filter applied: Status = Responded
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -300,12 +332,14 @@ export function CampaignAudience() {
             <CardContent className="p-6">
               <div className="text-center py-8 text-muted-foreground">
                 <p>Showing contacts with "Converted" status</p>
-                <p className="text-sm mt-2">Filter applied: Status = Converted</p>
+                <p className="text-sm mt-2">
+                  Filter applied: Status = Converted
+                </p>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

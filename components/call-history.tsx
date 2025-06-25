@@ -1,13 +1,33 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ArrowDownLeft, ArrowUpRight, Calendar, Clock, Info, Phone, Search, User } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  ArrowDownLeft,
+  ArrowUpRight,
+  Calendar,
+  Clock,
+  Info,
+  Phone,
+  Search,
+  User,
+} from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   Dialog,
   DialogContent,
@@ -15,11 +35,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 export function CallHistory() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [filterType, setFilterType] = useState("all")
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("all");
 
   // Sample call history data
   const callHistory = [
@@ -27,7 +47,7 @@ export function CallHistory() {
       id: "call1",
       contactName: "John Smith",
       contactNumber: "+1 (555) 123-4567",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       direction: "outbound",
       status: "completed",
       duration: "5:23",
@@ -40,7 +60,7 @@ export function CallHistory() {
       id: "call2",
       contactName: "Sarah Johnson",
       contactNumber: "+1 (555) 234-5678",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       direction: "inbound",
       status: "completed",
       duration: "3:45",
@@ -53,7 +73,7 @@ export function CallHistory() {
       id: "call3",
       contactName: "Michael Brown",
       contactNumber: "+1 (555) 345-6789",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       direction: "outbound",
       status: "missed",
       duration: "0:00",
@@ -66,7 +86,7 @@ export function CallHistory() {
       id: "call4",
       contactName: "Emily Davis",
       contactNumber: "+1 (555) 456-7890",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       direction: "outbound",
       status: "completed",
       duration: "8:12",
@@ -79,7 +99,7 @@ export function CallHistory() {
       id: "call5",
       contactName: "Robert Wilson",
       contactNumber: "+1 (555) 567-8901",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       direction: "inbound",
       status: "completed",
       duration: "1:30",
@@ -92,7 +112,7 @@ export function CallHistory() {
       id: "call6",
       contactName: "Jennifer Taylor",
       contactNumber: "+1 (555) 678-9012",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       direction: "outbound",
       status: "missed",
       duration: "0:00",
@@ -105,7 +125,7 @@ export function CallHistory() {
       id: "call7",
       contactName: "David Martinez",
       contactNumber: "+1 (555) 789-0123",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       direction: "outbound",
       status: "completed",
       duration: "4:15",
@@ -114,25 +134,27 @@ export function CallHistory() {
       notes: "Successful upsell to premium plan",
       campaign: "Q2 Customer Outreach",
     },
-  ]
+  ];
 
   // Filter calls based on search query and filter type
   const filteredCalls = callHistory.filter((call) => {
     const matchesSearch =
       call.contactName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       call.contactNumber.includes(searchQuery) ||
-      (call.notes && call.notes.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (call.campaign && call.campaign.toLowerCase().includes(searchQuery.toLowerCase()))
+      (call.notes &&
+        call.notes.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (call.campaign &&
+        call.campaign.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchesFilter =
       filterType === "all" ||
       (filterType === "outbound" && call.direction === "outbound") ||
       (filterType === "inbound" && call.direction === "inbound") ||
       (filterType === "missed" && call.status === "missed") ||
-      (filterType === "completed" && call.status === "completed")
+      (filterType === "completed" && call.status === "completed");
 
-    return matchesSearch && matchesFilter
-  })
+    return matchesSearch && matchesFilter;
+  });
 
   return (
     <div className="space-y-4">
@@ -147,7 +169,11 @@ export function CallHistory() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <Select defaultValue="all" value={filterType} onValueChange={setFilterType}>
+        <Select
+          defaultValue="all"
+          value={filterType}
+          onValueChange={setFilterType}
+        >
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Filter by" />
           </SelectTrigger>
@@ -164,10 +190,15 @@ export function CallHistory() {
       <ScrollArea className="h-[400px]">
         <div className="space-y-2">
           {filteredCalls.map((call) => (
-            <div key={call.id} className="flex items-center justify-between p-3 rounded-md hover:bg-slate-50">
+            <div
+              key={call.id}
+              className="flex items-center justify-between p-3 rounded-md hover:bg-slate-50"
+            >
               <div className="flex items-center gap-3">
                 <Avatar>
-                  <AvatarImage src={call.contactAvatar || "/placeholder.svg"} />
+                  <AvatarImage
+                    src={call.contactAvatar || "/placeholder-user.png"}
+                  />
                   <AvatarFallback>
                     <User className="h-4 w-4" />
                   </AvatarFallback>
@@ -180,9 +211,13 @@ export function CallHistory() {
                     ) : (
                       <ArrowDownLeft className="h-3 w-3 text-green-500" />
                     )}
-                    {call.status === "missed" && <span className="text-xs text-red-500">Missed</span>}
+                    {call.status === "missed" && (
+                      <span className="text-xs text-red-500">Missed</span>
+                    )}
                   </div>
-                  <p className="text-sm text-muted-foreground">{call.contactNumber}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {call.contactNumber}
+                  </p>
                   <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
                     <span className="flex items-center">
                       <Calendar className="h-3 w-3 mr-1" /> {call.date}
@@ -190,7 +225,9 @@ export function CallHistory() {
                     <span className="flex items-center">
                       <Clock className="h-3 w-3 mr-1" /> {call.time}
                     </span>
-                    {call.status === "completed" && <span>{call.duration}</span>}
+                    {call.status === "completed" && (
+                      <span>{call.duration}</span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -201,7 +238,11 @@ export function CallHistory() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <DialogTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                          >
                             <Info className="h-4 w-4" />
                             <span className="sr-only">Call Details</span>
                           </Button>
@@ -215,20 +256,30 @@ export function CallHistory() {
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle>Call Details</DialogTitle>
-                        <DialogDescription>Details for call with {call.contactName}</DialogDescription>
+                        <DialogDescription>
+                          Details for call with {call.contactName}
+                        </DialogDescription>
                       </DialogHeader>
 
                       <div className="space-y-4 py-4">
                         <div className="flex items-center gap-4">
                           <Avatar className="h-12 w-12">
-                            <AvatarImage src={call.contactAvatar || "/placeholder.svg"} />
+                            <AvatarImage
+                              src={
+                                call.contactAvatar || "/placeholder-user.png"
+                              }
+                            />
                             <AvatarFallback>
                               <User className="h-6 w-6" />
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <h3 className="font-medium text-lg">{call.contactName}</h3>
-                            <p className="text-muted-foreground">{call.contactNumber}</p>
+                            <h3 className="font-medium text-lg">
+                              {call.contactName}
+                            </h3>
+                            <p className="text-muted-foreground">
+                              {call.contactNumber}
+                            </p>
                           </div>
                         </div>
 
@@ -242,24 +293,31 @@ export function CallHistory() {
                           <div>
                             <h4 className="text-sm font-medium">Duration</h4>
                             <p className="text-sm text-muted-foreground">
-                              {call.status === "completed" ? call.duration : "N/A"}
+                              {call.status === "completed"
+                                ? call.duration
+                                : "N/A"}
                             </p>
                           </div>
                           <div>
                             <h4 className="text-sm font-medium">Type</h4>
                             <p className="text-sm text-muted-foreground capitalize">
-                              {call.direction} {call.status === "missed" && "(Missed)"}
+                              {call.direction}{" "}
+                              {call.status === "missed" && "(Missed)"}
                             </p>
                           </div>
                           <div>
                             <h4 className="text-sm font-medium">Campaign</h4>
-                            <p className="text-sm text-muted-foreground">{call.campaign || "N/A"}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {call.campaign || "N/A"}
+                            </p>
                           </div>
                         </div>
 
                         <div>
                           <h4 className="text-sm font-medium">Notes</h4>
-                          <p className="text-sm text-muted-foreground mt-1">{call.notes || "No notes available"}</p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {call.notes || "No notes available"}
+                          </p>
                         </div>
                       </div>
                     </DialogContent>
@@ -286,5 +344,5 @@ export function CallHistory() {
         </div>
       </ScrollArea>
     </div>
-  )
+  );
 }

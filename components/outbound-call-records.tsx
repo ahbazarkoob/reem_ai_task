@@ -1,13 +1,34 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ArrowUpRight, Bot, Calendar, Clock, Download, Info, Play, Search, User } from "lucide-react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  ArrowUpRight,
+  Bot,
+  Calendar,
+  Clock,
+  Download,
+  Info,
+  Play,
+  Search,
+  User,
+} from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   Dialog,
   DialogContent,
@@ -15,14 +36,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 export function OutboundCallRecords() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [filterType, setFilterType] = useState("all")
-  const [filterCampaign, setFilterCampaign] = useState("all")
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterType, setFilterType] = useState("all");
+  const [filterCampaign, setFilterCampaign] = useState("all");
 
   // Sample outbound call records data
   const callRecords = [
@@ -30,7 +51,7 @@ export function OutboundCallRecords() {
       id: "out1",
       contactName: "John Smith",
       contactNumber: "+1 (555) 123-4567",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       status: "completed",
       duration: "3:45",
       date: "Today",
@@ -48,7 +69,7 @@ export function OutboundCallRecords() {
       id: "out2",
       contactName: "Sarah Johnson",
       contactNumber: "+1 (555) 234-5678",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       status: "completed",
       duration: "2:15",
       date: "Today",
@@ -66,7 +87,7 @@ export function OutboundCallRecords() {
       id: "out3",
       contactName: "Michael Brown",
       contactNumber: "+1 (555) 345-6789",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       status: "no-answer",
       duration: "0:00",
       date: "Yesterday",
@@ -84,7 +105,7 @@ export function OutboundCallRecords() {
       id: "out4",
       contactName: "Emily Davis",
       contactNumber: "+1 (555) 456-7890",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       status: "completed",
       duration: "5:32",
       date: "Yesterday",
@@ -102,7 +123,7 @@ export function OutboundCallRecords() {
       id: "out5",
       contactName: "Robert Wilson",
       contactNumber: "+1 (555) 567-8901",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       status: "rejected",
       duration: "0:05",
       date: "May 20, 2025",
@@ -120,7 +141,7 @@ export function OutboundCallRecords() {
       id: "out6",
       contactName: "Jennifer Taylor",
       contactNumber: "+1 (555) 678-9012",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       status: "completed",
       duration: "4:15",
       date: "May 19, 2025",
@@ -138,7 +159,7 @@ export function OutboundCallRecords() {
       id: "out7",
       contactName: "David Martinez",
       contactNumber: "+1 (555) 789-0123",
-      contactAvatar: "/placeholder.svg?height=40&width=40",
+      contactAvatar: "/placeholder-user.png?height=40&width=40",
       status: "completed",
       duration: "2:50",
       date: "May 18, 2025",
@@ -152,58 +173,65 @@ export function OutboundCallRecords() {
       recordingAvailable: true,
       transcriptAvailable: true,
     },
-  ]
+  ];
 
   // Get unique campaigns for filter
-  const campaigns = Array.from(new Set(callRecords.map((call) => call.campaign)))
+  const campaigns = Array.from(
+    new Set(callRecords.map((call) => call.campaign))
+  );
 
   // Filter calls based on search query and filter types
   const filteredCalls = callRecords.filter((call) => {
     const matchesSearch =
-      (call.contactName && call.contactName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (call.contactName &&
+        call.contactName.toLowerCase().includes(searchQuery.toLowerCase())) ||
       call.contactNumber.includes(searchQuery) ||
-      (call.notes && call.notes.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (call.aiAgent && call.aiAgent.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (call.campaign && call.campaign.toLowerCase().includes(searchQuery.toLowerCase()))
+      (call.notes &&
+        call.notes.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (call.aiAgent &&
+        call.aiAgent.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (call.campaign &&
+        call.campaign.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const matchesStatusFilter =
       filterType === "all" ||
       (filterType === "completed" && call.status === "completed") ||
       (filterType === "no-answer" && call.status === "no-answer") ||
-      (filterType === "rejected" && call.status === "rejected")
+      (filterType === "rejected" && call.status === "rejected");
 
-    const matchesCampaignFilter = filterCampaign === "all" || call.campaign === filterCampaign
+    const matchesCampaignFilter =
+      filterCampaign === "all" || call.campaign === filterCampaign;
 
-    return matchesSearch && matchesStatusFilter && matchesCampaignFilter
-  })
+    return matchesSearch && matchesStatusFilter && matchesCampaignFilter;
+  });
 
   // Get sentiment color
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
       case "positive":
-        return "bg-green-100 text-green-800"
+        return "bg-green-100 text-green-800";
       case "negative":
-        return "bg-red-100 text-red-800"
+        return "bg-red-100 text-red-800";
       case "mixed":
-        return "bg-yellow-100 text-yellow-800"
+        return "bg-yellow-100 text-yellow-800";
       default:
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800";
     }
-  }
+  };
 
   // Get status badge variant
   const getStatusVariant = (status: string) => {
     switch (status) {
       case "completed":
-        return "default"
+        return "default";
       case "no-answer":
-        return "secondary"
+        return "secondary";
       case "rejected":
-        return "destructive"
+        return "destructive";
       default:
-        return "outline"
+        return "outline";
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
@@ -218,7 +246,11 @@ export function OutboundCallRecords() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <Select defaultValue="all" value={filterType} onValueChange={setFilterType}>
+        <Select
+          defaultValue="all"
+          value={filterType}
+          onValueChange={setFilterType}
+        >
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
@@ -229,7 +261,11 @@ export function OutboundCallRecords() {
             <SelectItem value="rejected">Rejected</SelectItem>
           </SelectContent>
         </Select>
-        <Select defaultValue="all" value={filterCampaign} onValueChange={setFilterCampaign}>
+        <Select
+          defaultValue="all"
+          value={filterCampaign}
+          onValueChange={setFilterCampaign}
+        >
           <SelectTrigger className="w-full sm:w-[180px]">
             <SelectValue placeholder="Campaign" />
           </SelectTrigger>
@@ -247,10 +283,15 @@ export function OutboundCallRecords() {
       <ScrollArea className="h-[500px]">
         <div className="space-y-2">
           {filteredCalls.map((call) => (
-            <div key={call.id} className="flex items-center justify-between p-3 rounded-md hover:bg-slate-50">
+            <div
+              key={call.id}
+              className="flex items-center justify-between p-3 rounded-md hover:bg-slate-50"
+            >
               <div className="flex items-center gap-3">
                 <Avatar>
-                  <AvatarImage src={call.contactAvatar || "/placeholder.svg"} />
+                  <AvatarImage
+                    src={call.contactAvatar || "/placeholder-user.png"}
+                  />
                   <AvatarFallback>
                     <User className="h-4 w-4" />
                   </AvatarFallback>
@@ -263,11 +304,13 @@ export function OutboundCallRecords() {
                       {call.status === "completed"
                         ? "Completed"
                         : call.status === "no-answer"
-                          ? "No Answer"
-                          : "Rejected"}
+                        ? "No Answer"
+                        : "Rejected"}
                     </Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground">{call.contactNumber}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {call.contactNumber}
+                  </p>
                   <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
                     <span className="flex items-center">
                       <Calendar className="h-3 w-3 mr-1" /> {call.date}
@@ -275,10 +318,15 @@ export function OutboundCallRecords() {
                     <span className="flex items-center">
                       <Clock className="h-3 w-3 mr-1" /> {call.time}
                     </span>
-                    {call.status === "completed" && <span>{call.duration}</span>}
+                    {call.status === "completed" && (
+                      <span>{call.duration}</span>
+                    )}
                   </div>
                   <div className="flex items-center gap-2 mt-1">
-                    <Badge variant="outline" className="flex items-center gap-1">
+                    <Badge
+                      variant="outline"
+                      className="flex items-center gap-1"
+                    >
                       <Bot className="h-3 w-3" /> {call.aiAgent}
                     </Badge>
                     {call.campaign && (
@@ -287,7 +335,12 @@ export function OutboundCallRecords() {
                       </Badge>
                     )}
                     {call.sentiment && (
-                      <Badge variant="outline" className={`text-xs ${getSentimentColor(call.sentiment)}`}>
+                      <Badge
+                        variant="outline"
+                        className={`text-xs ${getSentimentColor(
+                          call.sentiment
+                        )}`}
+                      >
                         {call.sentiment}
                       </Badge>
                     )}
@@ -331,7 +384,11 @@ export function OutboundCallRecords() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <DialogTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8"
+                          >
                             <Info className="h-4 w-4" />
                           </Button>
                         </DialogTrigger>
@@ -344,27 +401,40 @@ export function OutboundCallRecords() {
                     <DialogContent className="max-w-3xl">
                       <DialogHeader>
                         <DialogTitle>Outbound Call Details</DialogTitle>
-                        <DialogDescription>AI-driven call to {call.contactName}</DialogDescription>
+                        <DialogDescription>
+                          AI-driven call to {call.contactName}
+                        </DialogDescription>
                       </DialogHeader>
 
                       <div className="space-y-6 py-4">
                         <div className="flex items-center gap-4">
                           <Avatar className="h-12 w-12">
-                            <AvatarImage src={call.contactAvatar || "/placeholder.svg"} />
+                            <AvatarImage
+                              src={
+                                call.contactAvatar || "/placeholder-user.png"
+                              }
+                            />
                             <AvatarFallback>
                               <User className="h-6 w-6" />
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <h3 className="font-medium text-lg">{call.contactName}</h3>
-                            <p className="text-muted-foreground">{call.contactNumber}</p>
+                            <h3 className="font-medium text-lg">
+                              {call.contactName}
+                            </h3>
+                            <p className="text-muted-foreground">
+                              {call.contactNumber}
+                            </p>
                           </div>
-                          <Badge variant={getStatusVariant(call.status)} className="ml-auto">
+                          <Badge
+                            variant={getStatusVariant(call.status)}
+                            className="ml-auto"
+                          >
                             {call.status === "completed"
                               ? "Completed"
                               : call.status === "no-answer"
-                                ? "No Answer"
-                                : "Rejected"}
+                              ? "No Answer"
+                              : "Rejected"}
                           </Badge>
                         </div>
 
@@ -378,60 +448,102 @@ export function OutboundCallRecords() {
                           <div>
                             <h4 className="text-sm font-medium">Duration</h4>
                             <p className="text-sm text-muted-foreground">
-                              {call.status === "completed" ? call.duration : "N/A"}
+                              {call.status === "completed"
+                                ? call.duration
+                                : "N/A"}
                             </p>
                           </div>
                           <div>
                             <h4 className="text-sm font-medium">AI Agent</h4>
-                            <p className="text-sm text-muted-foreground">{call.aiAgent}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {call.aiAgent}
+                            </p>
                           </div>
                           <div>
                             <h4 className="text-sm font-medium">Campaign</h4>
-                            <p className="text-sm text-muted-foreground">{call.campaign}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {call.campaign}
+                            </p>
                           </div>
                           <div>
                             <h4 className="text-sm font-medium">Script Used</h4>
-                            <p className="text-sm text-muted-foreground">{call.script}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {call.script}
+                            </p>
                           </div>
                           <div>
                             <h4 className="text-sm font-medium">Outcome</h4>
-                            <p className="text-sm text-muted-foreground">{call.outcome}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {call.outcome}
+                            </p>
                           </div>
                         </div>
 
                         <div>
-                          <h4 className="text-sm font-medium">Sentiment Analysis</h4>
+                          <h4 className="text-sm font-medium">
+                            Sentiment Analysis
+                          </h4>
                           <div className="mt-2 space-y-2">
                             <div className="flex justify-between text-xs">
                               <span>Positive</span>
                               <span>
-                                {call.sentiment === "positive" ? "75%" : call.sentiment === "mixed" ? "40%" : "10%"}
+                                {call.sentiment === "positive"
+                                  ? "75%"
+                                  : call.sentiment === "mixed"
+                                  ? "40%"
+                                  : "10%"}
                               </span>
                             </div>
                             <Progress
-                              value={call.sentiment === "positive" ? 75 : call.sentiment === "mixed" ? 40 : 10}
+                              value={
+                                call.sentiment === "positive"
+                                  ? 75
+                                  : call.sentiment === "mixed"
+                                  ? 40
+                                  : 10
+                              }
                               className="h-2 bg-gray-100"
                             />
 
                             <div className="flex justify-between text-xs">
                               <span>Neutral</span>
                               <span>
-                                {call.sentiment === "neutral" ? "80%" : call.sentiment === "mixed" ? "30%" : "15%"}
+                                {call.sentiment === "neutral"
+                                  ? "80%"
+                                  : call.sentiment === "mixed"
+                                  ? "30%"
+                                  : "15%"}
                               </span>
                             </div>
                             <Progress
-                              value={call.sentiment === "neutral" ? 80 : call.sentiment === "mixed" ? 30 : 15}
+                              value={
+                                call.sentiment === "neutral"
+                                  ? 80
+                                  : call.sentiment === "mixed"
+                                  ? 30
+                                  : 15
+                              }
                               className="h-2 bg-gray-100"
                             />
 
                             <div className="flex justify-between text-xs">
                               <span>Negative</span>
                               <span>
-                                {call.sentiment === "negative" ? "70%" : call.sentiment === "mixed" ? "30%" : "5%"}
+                                {call.sentiment === "negative"
+                                  ? "70%"
+                                  : call.sentiment === "mixed"
+                                  ? "30%"
+                                  : "5%"}
                               </span>
                             </div>
                             <Progress
-                              value={call.sentiment === "negative" ? 70 : call.sentiment === "mixed" ? 30 : 5}
+                              value={
+                                call.sentiment === "negative"
+                                  ? 70
+                                  : call.sentiment === "mixed"
+                                  ? 30
+                                  : 5
+                              }
                               className="h-2 bg-gray-100"
                             />
                           </div>
@@ -439,18 +551,27 @@ export function OutboundCallRecords() {
 
                         <div>
                           <h4 className="text-sm font-medium">Call Notes</h4>
-                          <p className="text-sm text-muted-foreground mt-1">{call.notes || "No notes available"}</p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {call.notes || "No notes available"}
+                          </p>
                         </div>
 
                         <div className="flex justify-between">
                           {call.recordingAvailable && (
-                            <Button variant="outline" className="flex items-center gap-2">
+                            <Button
+                              variant="outline"
+                              className="flex items-center gap-2"
+                            >
                               <Play className="h-4 w-4" /> Play Recording
                             </Button>
                           )}
                           {call.transcriptAvailable && (
-                            <Button variant="outline" className="flex items-center gap-2">
-                              <Download className="h-4 w-4" /> Download Transcript
+                            <Button
+                              variant="outline"
+                              className="flex items-center gap-2"
+                            >
+                              <Download className="h-4 w-4" /> Download
+                              Transcript
                             </Button>
                           )}
                         </div>
@@ -470,5 +591,5 @@ export function OutboundCallRecords() {
         </div>
       </ScrollArea>
     </div>
-  )
+  );
 }

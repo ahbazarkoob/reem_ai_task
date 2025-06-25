@@ -1,11 +1,25 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Separator } from "@/components/ui/separator"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+"use client";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   Building,
   Calendar,
@@ -19,11 +33,11 @@ import {
   Plus,
   Trash2,
   User,
-} from "lucide-react"
-import Link from "next/link"
+} from "lucide-react";
+import Link from "next/link";
 
 interface ContactDetailProps {
-  id: string
+  id: string;
 }
 
 export function ContactDetail({ id }: ContactDetailProps) {
@@ -49,7 +63,8 @@ export function ContactDetail({ id }: ContactDetailProps) {
     status: "active",
     source: "Website",
     industry: "Technology",
-    notes: "Met at the annual tech conference. Interested in our enterprise solution.",
+    notes:
+      "Met at the annual tech conference. Interested in our enterprise solution.",
     preferences: {
       emailOptIn: true,
       smsOptIn: false,
@@ -60,8 +75,8 @@ export function ContactDetail({ id }: ContactDetailProps) {
     },
     lastContacted: "2 days ago",
     addedDate: "Oct 15, 2023",
-    avatar: "/placeholder.svg?height=128&width=128",
-  }
+    avatar: "/placeholder-user.png?height=128&width=128",
+  };
 
   // Sample activity data
   const activities = [
@@ -71,7 +86,8 @@ export function ContactDetail({ id }: ContactDetailProps) {
       date: "May 15, 2024",
       time: "2:30 PM",
       duration: "15 minutes",
-      notes: "Discussed upcoming product launch and their interest in our enterprise plan.",
+      notes:
+        "Discussed upcoming product launch and their interest in our enterprise plan.",
       outcome: "Positive",
     },
     {
@@ -89,7 +105,8 @@ export function ContactDetail({ id }: ContactDetailProps) {
       date: "April 28, 2024",
       time: "10:00 AM",
       duration: "45 minutes",
-      notes: "Product demo with their team. They showed interest in the analytics features.",
+      notes:
+        "Product demo with their team. They showed interest in the analytics features.",
       outcome: "Positive",
     },
     {
@@ -109,7 +126,7 @@ export function ContactDetail({ id }: ContactDetailProps) {
       notes: "Initial outreach email with product information.",
       opened: true,
     },
-  ]
+  ];
 
   // Sample deals data
   const deals = [
@@ -129,7 +146,7 @@ export function ContactDetail({ id }: ContactDetailProps) {
       probability: "75%",
       expectedCloseDate: "May 31, 2024",
     },
-  ]
+  ];
 
   return (
     <div className="space-y-6">
@@ -138,8 +155,13 @@ export function ContactDetail({ id }: ContactDetailProps) {
         <Card className="md:col-span-1">
           <CardHeader className="flex flex-row items-start gap-4">
             <Avatar className="h-16 w-16">
-              <AvatarImage src={contact.avatar || "/placeholder.svg"} alt={contact.name} />
-              <AvatarFallback>{contact.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+              <AvatarImage
+                src={contact.avatar || "/placeholder-user.png"}
+                alt={contact.name}
+              />
+              <AvatarFallback>
+                {contact.name.substring(0, 2).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
             <div className="space-y-1">
               <CardTitle>{contact.name}</CardTitle>
@@ -159,7 +181,10 @@ export function ContactDetail({ id }: ContactDetailProps) {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <Mail className="h-4 w-4 text-muted-foreground" />
-                <a href={`mailto:${contact.email}`} className="text-primary hover:underline">
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="text-primary hover:underline"
+                >
                   {contact.email}
                 </a>
               </div>
@@ -207,7 +232,8 @@ export function ContactDetail({ id }: ContactDetailProps) {
                   <p>{contact.address.street}</p>
                   {contact.address.street2 && <p>{contact.address.street2}</p>}
                   <p>
-                    {contact.address.city}, {contact.address.state} {contact.address.zip}
+                    {contact.address.city}, {contact.address.state}{" "}
+                    {contact.address.zip}
                   </p>
                   <p>{contact.address.country}</p>
                 </div>
@@ -278,11 +304,21 @@ export function ContactDetail({ id }: ContactDetailProps) {
                     <CardHeader className="p-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          {activity.type === "call" && <Phone className="h-4 w-4 text-blue-500" />}
-                          {activity.type === "email" && <Mail className="h-4 w-4 text-green-500" />}
-                          {activity.type === "meeting" && <User className="h-4 w-4 text-purple-500" />}
-                          {activity.type === "sms" && <MessageSquare className="h-4 w-4 text-orange-500" />}
-                          <CardTitle className="text-base capitalize">{activity.type}</CardTitle>
+                          {activity.type === "call" && (
+                            <Phone className="h-4 w-4 text-blue-500" />
+                          )}
+                          {activity.type === "email" && (
+                            <Mail className="h-4 w-4 text-green-500" />
+                          )}
+                          {activity.type === "meeting" && (
+                            <User className="h-4 w-4 text-purple-500" />
+                          )}
+                          {activity.type === "sms" && (
+                            <MessageSquare className="h-4 w-4 text-orange-500" />
+                          )}
+                          <CardTitle className="text-base capitalize">
+                            {activity.type}
+                          </CardTitle>
                         </div>
                         <div className="text-sm text-muted-foreground">
                           {activity.date} at {activity.time}
@@ -290,23 +326,42 @@ export function ContactDetail({ id }: ContactDetailProps) {
                       </div>
                     </CardHeader>
                     <CardContent className="p-4 pt-0">
-                      {activity.subject && <p className="font-medium mb-1">Subject: {activity.subject}</p>}
+                      {activity.subject && (
+                        <p className="font-medium mb-1">
+                          Subject: {activity.subject}
+                        </p>
+                      )}
                       {activity.duration && (
-                        <p className="text-sm text-muted-foreground mb-1">Duration: {activity.duration}</p>
+                        <p className="text-sm text-muted-foreground mb-1">
+                          Duration: {activity.duration}
+                        </p>
                       )}
                       <p className="text-sm">{activity.notes}</p>
                       {activity.outcome && (
-                        <Badge className="mt-2" variant={activity.outcome === "Positive" ? "default" : "outline"}>
+                        <Badge
+                          className="mt-2"
+                          variant={
+                            activity.outcome === "Positive"
+                              ? "default"
+                              : "outline"
+                          }
+                        >
                           {activity.outcome}
                         </Badge>
                       )}
                       {activity.opened !== undefined && (
-                        <Badge className="mt-2" variant={activity.opened ? "default" : "outline"}>
+                        <Badge
+                          className="mt-2"
+                          variant={activity.opened ? "default" : "outline"}
+                        >
                           {activity.opened ? "Opened" : "Not Opened"}
                         </Badge>
                       )}
                       {activity.delivered !== undefined && (
-                        <Badge className="mt-2" variant={activity.delivered ? "default" : "outline"}>
+                        <Badge
+                          className="mt-2"
+                          variant={activity.delivered ? "default" : "outline"}
+                        >
                           {activity.delivered ? "Delivered" : "Not Delivered"}
                         </Badge>
                       )}
@@ -346,7 +401,9 @@ export function ContactDetail({ id }: ContactDetailProps) {
                     <TableBody>
                       {deals.map((deal) => (
                         <TableRow key={deal.id}>
-                          <TableCell className="font-medium">{deal.name}</TableCell>
+                          <TableCell className="font-medium">
+                            {deal.name}
+                          </TableCell>
                           <TableCell>{deal.value}</TableCell>
                           <TableCell>
                             <Badge variant="outline">{deal.stage}</Badge>
@@ -404,7 +461,9 @@ export function ContactDetail({ id }: ContactDetailProps) {
             {/* Preferences Tab */}
             <TabsContent value="preferences" className="space-y-4">
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-medium">Communication Preferences</h3>
+                <h3 className="text-lg font-medium">
+                  Communication Preferences
+                </h3>
                 <Button size="sm" variant="outline" asChild>
                   <Link href={`/contacts/${id}/edit?tab=preferences`}>
                     <Edit className="mr-2 h-4 w-4" />
@@ -419,38 +478,72 @@ export function ContactDetail({ id }: ContactDetailProps) {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-1">
                         <p className="text-sm font-medium">Email Marketing</p>
-                        <Badge variant={contact.preferences.emailOptIn ? "default" : "secondary"}>
-                          {contact.preferences.emailOptIn ? "Opted In" : "Opted Out"}
+                        <Badge
+                          variant={
+                            contact.preferences.emailOptIn
+                              ? "default"
+                              : "secondary"
+                          }
+                        >
+                          {contact.preferences.emailOptIn
+                            ? "Opted In"
+                            : "Opted Out"}
                         </Badge>
                       </div>
 
                       <div className="space-y-1">
                         <p className="text-sm font-medium">SMS Notifications</p>
-                        <Badge variant={contact.preferences.smsOptIn ? "default" : "secondary"}>
-                          {contact.preferences.smsOptIn ? "Opted In" : "Opted Out"}
+                        <Badge
+                          variant={
+                            contact.preferences.smsOptIn
+                              ? "default"
+                              : "secondary"
+                          }
+                        >
+                          {contact.preferences.smsOptIn
+                            ? "Opted In"
+                            : "Opted Out"}
                         </Badge>
                       </div>
 
                       <div className="space-y-1">
                         <p className="text-sm font-medium">Phone Calls</p>
-                        <Badge variant={contact.preferences.callOptIn ? "default" : "secondary"}>
-                          {contact.preferences.callOptIn ? "Opted In" : "Opted Out"}
+                        <Badge
+                          variant={
+                            contact.preferences.callOptIn
+                              ? "default"
+                              : "secondary"
+                          }
+                        >
+                          {contact.preferences.callOptIn
+                            ? "Opted In"
+                            : "Opted Out"}
                         </Badge>
                       </div>
 
                       <div className="space-y-1">
-                        <p className="text-sm font-medium">Preferred Contact Method</p>
-                        <p className="text-sm capitalize">{contact.preferences.preferredContact}</p>
+                        <p className="text-sm font-medium">
+                          Preferred Contact Method
+                        </p>
+                        <p className="text-sm capitalize">
+                          {contact.preferences.preferredContact}
+                        </p>
                       </div>
 
                       <div className="space-y-1">
-                        <p className="text-sm font-medium">Preferred Language</p>
-                        <p className="text-sm">{contact.preferences.preferredLanguage}</p>
+                        <p className="text-sm font-medium">
+                          Preferred Language
+                        </p>
+                        <p className="text-sm">
+                          {contact.preferences.preferredLanguage}
+                        </p>
                       </div>
 
                       <div className="space-y-1">
                         <p className="text-sm font-medium">Contact Frequency</p>
-                        <p className="text-sm">{contact.preferences.contactFrequency}</p>
+                        <p className="text-sm">
+                          {contact.preferences.contactFrequency}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -461,5 +554,5 @@ export function ContactDetail({ id }: ContactDetailProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

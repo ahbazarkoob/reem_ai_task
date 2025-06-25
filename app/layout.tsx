@@ -1,11 +1,14 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider"
 import { DashboardLayout } from "@/components/dashboard-layout"
 
-const inter = Inter({ subsets: ["latin"] })
+const outfit = localFont({
+  src: "./fonts/Outfit-VariableFont_wght.ttf",
+  variable: "--font-outfit",
+});
 
 export const metadata: Metadata = {
   title: "AI Campaign Dashboard",
@@ -20,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={outfit.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <DashboardLayout>{children}</DashboardLayout>
         </ThemeProvider>
@@ -28,3 +31,4 @@ export default function RootLayout({
     </html>
   )
 }
+

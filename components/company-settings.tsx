@@ -1,35 +1,75 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
-import { Separator } from "@/components/ui/separator"
-import { TimePickerDemo } from "@/components/time-picker-demo"
-import { toast } from "@/components/ui/use-toast"
-import { Building, CreditCard, Globe, Mail, MapPin, Phone, Upload, Clock, Palette, Bell } from "lucide-react"
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
+import { TimePickerDemo } from "@/components/time-picker-demo";
+import { toast } from "@/components/ui/use-toast";
+import {
+  Building,
+  CreditCard,
+  Globe,
+  Mail,
+  MapPin,
+  Phone,
+  Upload,
+  Clock,
+  Palette,
+  Bell,
+} from "lucide-react";
 
 const companyFormSchema = z.object({
-  name: z.string().min(2, { message: "Company name must be at least 2 characters." }),
-  website: z.string().url({ message: "Please enter a valid URL." }).optional().or(z.literal("")),
+  name: z
+    .string()
+    .min(2, { message: "Company name must be at least 2 characters." }),
+  website: z
+    .string()
+    .url({ message: "Please enter a valid URL." })
+    .optional()
+    .or(z.literal("")),
   email: z.string().email({ message: "Please enter a valid email address." }),
   phone: z.string().min(5, { message: "Please enter a valid phone number." }),
   address: z.string().min(5, { message: "Please enter a valid address." }),
   city: z.string().min(2, { message: "Please enter a valid city." }),
   state: z.string().min(2, { message: "Please enter a valid state/province." }),
-  postalCode: z.string().min(2, { message: "Please enter a valid postal code." }),
+  postalCode: z
+    .string()
+    .min(2, { message: "Please enter a valid postal code." }),
   country: z.string().min(2, { message: "Please enter a valid country." }),
   taxId: z.string().optional(),
   description: z.string().optional(),
-})
+});
 
 const brandingFormSchema = z.object({
   primaryColor: z.string(),
@@ -39,7 +79,7 @@ const brandingFormSchema = z.object({
   customCss: z.string().optional(),
   customFonts: z.boolean(),
   emailTemplate: z.string(),
-})
+});
 
 const businessHoursSchema = z.object({
   timezone: z.string(),
@@ -50,7 +90,7 @@ const businessHoursSchema = z.object({
   fridayEnabled: z.boolean(),
   saturdayEnabled: z.boolean(),
   sundayEnabled: z.boolean(),
-})
+});
 
 const notificationSchema = z.object({
   emailNotifications: z.boolean(),
@@ -59,10 +99,10 @@ const notificationSchema = z.object({
   dailyDigest: z.boolean(),
   weeklyReport: z.boolean(),
   criticalAlerts: z.boolean(),
-})
+});
 
 export function CompanySettings() {
-  const [activeTab, setActiveTab] = useState("profile")
+  const [activeTab, setActiveTab] = useState("profile");
 
   const companyForm = useForm<z.infer<typeof companyFormSchema>>({
     resolver: zodResolver(companyFormSchema),
@@ -79,7 +119,7 @@ export function CompanySettings() {
       taxId: "12-3456789",
       description: "Leading provider of AI communication solutions",
     },
-  })
+  });
 
   const brandingForm = useForm<z.infer<typeof brandingFormSchema>>({
     resolver: zodResolver(brandingFormSchema),
@@ -92,7 +132,7 @@ export function CompanySettings() {
       customFonts: false,
       emailTemplate: "standard",
     },
-  })
+  });
 
   const businessHoursForm = useForm<z.infer<typeof businessHoursSchema>>({
     resolver: zodResolver(businessHoursSchema),
@@ -106,7 +146,7 @@ export function CompanySettings() {
       saturdayEnabled: false,
       sundayEnabled: false,
     },
-  })
+  });
 
   const notificationForm = useForm<z.infer<typeof notificationSchema>>({
     resolver: zodResolver(notificationSchema),
@@ -118,57 +158,87 @@ export function CompanySettings() {
       weeklyReport: true,
       criticalAlerts: true,
     },
-  })
+  });
 
   function onCompanySubmit(values: z.infer<typeof companyFormSchema>) {
     toast({
       title: "Company profile updated",
       description: "Your company profile has been successfully updated.",
-    })
-    console.log(values)
+    });
+    console.log(values);
   }
 
   function onBrandingSubmit(values: z.infer<typeof brandingFormSchema>) {
     toast({
       title: "Branding settings updated",
       description: "Your branding settings have been successfully updated.",
-    })
-    console.log(values)
+    });
+    console.log(values);
   }
 
   function onBusinessHoursSubmit(values: z.infer<typeof businessHoursSchema>) {
     toast({
       title: "Business hours updated",
       description: "Your business hours have been successfully updated.",
-    })
-    console.log(values)
+    });
+    console.log(values);
   }
 
   function onNotificationSubmit(values: z.infer<typeof notificationSchema>) {
     toast({
       title: "Notification settings updated",
       description: "Your notification settings have been successfully updated.",
-    })
-    console.log(values)
+    });
+    console.log(values);
   }
 
   return (
-    <Tabs defaultValue="profile" value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+    <Tabs
+      defaultValue="profile"
+      value={activeTab}
+      onValueChange={setActiveTab}
+      className="space-y-6"
+    >
       <TabsList className="grid grid-cols-4 w-full max-w-3xl">
-        <TabsTrigger value="profile">Company Profile</TabsTrigger>
-        <TabsTrigger value="branding">Branding</TabsTrigger>
-        <TabsTrigger value="hours">Business Hours</TabsTrigger>
-        <TabsTrigger value="notifications">Notifications</TabsTrigger>
+        <TabsTrigger
+          value="profile"
+          className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+        >
+          Company Profile
+        </TabsTrigger>
+        <TabsTrigger
+          value="branding"
+          className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+        >
+          Branding
+        </TabsTrigger>
+        <TabsTrigger
+          value="hours"
+          className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+        >
+          Business Hours
+        </TabsTrigger>
+        <TabsTrigger
+          value="notifications"
+          className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+        >
+          Notifications
+        </TabsTrigger>
       </TabsList>
 
       {/* Company Profile Tab */}
       <TabsContent value="profile" className="space-y-6">
         <Form {...companyForm}>
-          <form onSubmit={companyForm.handleSubmit(onCompanySubmit)} className="space-y-6">
+          <form
+            onSubmit={companyForm.handleSubmit(onCompanySubmit)}
+            className="space-y-6"
+          >
             <Card>
               <CardHeader>
                 <CardTitle>Company Information</CardTitle>
-                <CardDescription>Update your company details and contact information.</CardDescription>
+                <CardDescription>
+                  Update your company details and contact information.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex flex-col space-y-4">
@@ -212,7 +282,10 @@ export function CompanySettings() {
                         <FormControl>
                           <div className="flex">
                             <Globe className="h-4 w-4 mr-2 mt-3 text-muted-foreground" />
-                            <Input placeholder="https://example.com" {...field} />
+                            <Input
+                              placeholder="https://example.com"
+                              {...field}
+                            />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -229,7 +302,10 @@ export function CompanySettings() {
                         <FormControl>
                           <div className="flex">
                             <Mail className="h-4 w-4 mr-2 mt-3 text-muted-foreground" />
-                            <Input placeholder="contact@example.com" {...field} />
+                            <Input
+                              placeholder="contact@example.com"
+                              {...field}
+                            />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -327,16 +403,23 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Country</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a country" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="United States">United States</SelectItem>
+                            <SelectItem value="United States">
+                              United States
+                            </SelectItem>
                             <SelectItem value="Canada">Canada</SelectItem>
-                            <SelectItem value="United Kingdom">United Kingdom</SelectItem>
+                            <SelectItem value="United Kingdom">
+                              United Kingdom
+                            </SelectItem>
                             <SelectItem value="Australia">Australia</SelectItem>
                             <SelectItem value="Germany">Germany</SelectItem>
                             <SelectItem value="France">France</SelectItem>
@@ -352,7 +435,9 @@ export function CompanySettings() {
                 <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Additional Information</h3>
+                  <h3 className="text-lg font-medium">
+                    Additional Information
+                  </h3>
 
                   <FormField
                     control={companyForm.control}
@@ -386,7 +471,8 @@ export function CompanySettings() {
                           />
                         </FormControl>
                         <FormDescription>
-                          This description may be used in customer-facing communications.
+                          This description may be used in customer-facing
+                          communications.
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -408,11 +494,16 @@ export function CompanySettings() {
       {/* Branding Tab */}
       <TabsContent value="branding" className="space-y-6">
         <Form {...brandingForm}>
-          <form onSubmit={brandingForm.handleSubmit(onBrandingSubmit)} className="space-y-6">
+          <form
+            onSubmit={brandingForm.handleSubmit(onBrandingSubmit)}
+            className="space-y-6"
+          >
             <Card>
               <CardHeader>
                 <CardTitle>Branding Settings</CardTitle>
-                <CardDescription>Customize your brand colors, logo, and appearance.</CardDescription>
+                <CardDescription>
+                  Customize your brand colors, logo, and appearance.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
@@ -425,12 +516,17 @@ export function CompanySettings() {
                         <FormItem>
                           <FormLabel>Primary Color</FormLabel>
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-md border" style={{ backgroundColor: field.value }} />
+                            <div
+                              className="w-8 h-8 rounded-md border"
+                              style={{ backgroundColor: field.value }}
+                            />
                             <FormControl>
                               <Input {...field} />
                             </FormControl>
                           </div>
-                          <FormDescription>Main brand color for buttons and accents</FormDescription>
+                          <FormDescription>
+                            Main brand color for buttons and accents
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -443,12 +539,17 @@ export function CompanySettings() {
                         <FormItem>
                           <FormLabel>Secondary Color</FormLabel>
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-md border" style={{ backgroundColor: field.value }} />
+                            <div
+                              className="w-8 h-8 rounded-md border"
+                              style={{ backgroundColor: field.value }}
+                            />
                             <FormControl>
                               <Input {...field} />
                             </FormControl>
                           </div>
-                          <FormDescription>Used for backgrounds and secondary elements</FormDescription>
+                          <FormDescription>
+                            Used for backgrounds and secondary elements
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -461,12 +562,17 @@ export function CompanySettings() {
                         <FormItem>
                           <FormLabel>Accent Color</FormLabel>
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-md border" style={{ backgroundColor: field.value }} />
+                            <div
+                              className="w-8 h-8 rounded-md border"
+                              style={{ backgroundColor: field.value }}
+                            />
                             <FormControl>
                               <Input {...field} />
                             </FormControl>
                           </div>
-                          <FormDescription>Used for highlights and call-to-actions</FormDescription>
+                          <FormDescription>
+                            Used for highlights and call-to-actions
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -488,7 +594,9 @@ export function CompanySettings() {
                           <Upload className="h-4 w-4 mr-2" />
                           Upload Light Logo
                         </Button>
-                        <p className="text-xs text-muted-foreground mt-2">Logo for light backgrounds</p>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Logo for light backgrounds
+                        </p>
                       </div>
                     </div>
 
@@ -501,7 +609,9 @@ export function CompanySettings() {
                           <Upload className="h-4 w-4 mr-2" />
                           Upload Dark Logo
                         </Button>
-                        <p className="text-xs text-muted-foreground mt-2">Logo for dark backgrounds</p>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Logo for dark backgrounds
+                        </p>
                       </div>
                     </div>
 
@@ -511,13 +621,19 @@ export function CompanySettings() {
                       render={({ field }) => (
                         <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                           <div className="space-y-0.5">
-                            <FormLabel className="text-base">Use light logo on dark backgrounds</FormLabel>
+                            <FormLabel className="text-base">
+                              Use light logo on dark backgrounds
+                            </FormLabel>
                             <FormDescription>
-                              Automatically switch to light logo when on dark backgrounds
+                              Automatically switch to light logo when on dark
+                              backgrounds
                             </FormDescription>
                           </div>
                           <FormControl>
-                            <Switch checked={field.value} onCheckedChange={field.onChange} />
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
                           </FormControl>
                         </FormItem>
                       )}
@@ -528,7 +644,9 @@ export function CompanySettings() {
                 <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="text-lg font-medium">Advanced Customization</h3>
+                  <h3 className="text-lg font-medium">
+                    Advanced Customization
+                  </h3>
 
                   <FormField
                     control={brandingForm.control}
@@ -544,7 +662,9 @@ export function CompanySettings() {
                             {...field}
                           />
                         </FormControl>
-                        <FormDescription>Advanced: Add custom CSS to override default styles</FormDescription>
+                        <FormDescription>
+                          Advanced: Add custom CSS to override default styles
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -556,11 +676,18 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                         <div className="space-y-0.5">
-                          <FormLabel className="text-base">Use custom fonts</FormLabel>
-                          <FormDescription>Enable custom font usage across the platform</FormDescription>
+                          <FormLabel className="text-base">
+                            Use custom fonts
+                          </FormLabel>
+                          <FormDescription>
+                            Enable custom font usage across the platform
+                          </FormDescription>
                         </div>
                         <FormControl>
-                          <Switch checked={field.value} onCheckedChange={field.onChange} />
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -572,7 +699,10 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Email Template</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select email template" />
@@ -586,7 +716,9 @@ export function CompanySettings() {
                             <SelectItem value="custom">Custom</SelectItem>
                           </SelectContent>
                         </Select>
-                        <FormDescription>Choose the template style for all system emails</FormDescription>
+                        <FormDescription>
+                          Choose the template style for all system emails
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -607,11 +739,16 @@ export function CompanySettings() {
       {/* Business Hours Tab */}
       <TabsContent value="hours" className="space-y-6">
         <Form {...businessHoursForm}>
-          <form onSubmit={businessHoursForm.handleSubmit(onBusinessHoursSubmit)} className="space-y-6">
+          <form
+            onSubmit={businessHoursForm.handleSubmit(onBusinessHoursSubmit)}
+            className="space-y-6"
+          >
             <Card>
               <CardHeader>
                 <CardTitle>Business Hours</CardTitle>
-                <CardDescription>Set your company's operating hours and availability.</CardDescription>
+                <CardDescription>
+                  Set your company's operating hours and availability.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
@@ -621,24 +758,41 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Timezone</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select timezone" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="America/Los_Angeles">Pacific Time (US & Canada)</SelectItem>
-                            <SelectItem value="America/Denver">Mountain Time (US & Canada)</SelectItem>
-                            <SelectItem value="America/Chicago">Central Time (US & Canada)</SelectItem>
-                            <SelectItem value="America/New_York">Eastern Time (US & Canada)</SelectItem>
-                            <SelectItem value="Europe/London">London</SelectItem>
+                            <SelectItem value="America/Los_Angeles">
+                              Pacific Time (US & Canada)
+                            </SelectItem>
+                            <SelectItem value="America/Denver">
+                              Mountain Time (US & Canada)
+                            </SelectItem>
+                            <SelectItem value="America/Chicago">
+                              Central Time (US & Canada)
+                            </SelectItem>
+                            <SelectItem value="America/New_York">
+                              Eastern Time (US & Canada)
+                            </SelectItem>
+                            <SelectItem value="Europe/London">
+                              London
+                            </SelectItem>
                             <SelectItem value="Europe/Paris">Paris</SelectItem>
                             <SelectItem value="Asia/Tokyo">Tokyo</SelectItem>
-                            <SelectItem value="Australia/Sydney">Sydney</SelectItem>
+                            <SelectItem value="Australia/Sydney">
+                              Sydney
+                            </SelectItem>
                           </SelectContent>
                         </Select>
-                        <FormDescription>All times will be displayed in this timezone</FormDescription>
+                        <FormDescription>
+                          All times will be displayed in this timezone
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -665,15 +819,24 @@ export function CompanySettings() {
                             render={({ field }) => (
                               <FormItem className="flex items-center space-x-2">
                                 <FormControl>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                 </FormControl>
                                 <FormLabel className="!mt-0">Monday</FormLabel>
                               </FormItem>
                             )}
                           />
                         </div>
-                        <TimePickerDemo disabled={!businessHoursForm.watch("mondayEnabled")} defaultValue="09:00" />
-                        <TimePickerDemo disabled={!businessHoursForm.watch("mondayEnabled")} defaultValue="17:00" />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("mondayEnabled")}
+                          defaultValue="09:00"
+                        />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("mondayEnabled")}
+                          defaultValue="17:00"
+                        />
                       </div>
 
                       <div className="grid grid-cols-[120px_1fr_1fr] gap-4 items-center">
@@ -684,15 +847,24 @@ export function CompanySettings() {
                             render={({ field }) => (
                               <FormItem className="flex items-center space-x-2">
                                 <FormControl>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                 </FormControl>
                                 <FormLabel className="!mt-0">Tuesday</FormLabel>
                               </FormItem>
                             )}
                           />
                         </div>
-                        <TimePickerDemo disabled={!businessHoursForm.watch("tuesdayEnabled")} defaultValue="09:00" />
-                        <TimePickerDemo disabled={!businessHoursForm.watch("tuesdayEnabled")} defaultValue="17:00" />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("tuesdayEnabled")}
+                          defaultValue="09:00"
+                        />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("tuesdayEnabled")}
+                          defaultValue="17:00"
+                        />
                       </div>
 
                       <div className="grid grid-cols-[120px_1fr_1fr] gap-4 items-center">
@@ -703,15 +875,30 @@ export function CompanySettings() {
                             render={({ field }) => (
                               <FormItem className="flex items-center space-x-2">
                                 <FormControl>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                 </FormControl>
-                                <FormLabel className="!mt-0">Wednesday</FormLabel>
+                                <FormLabel className="!mt-0">
+                                  Wednesday
+                                </FormLabel>
                               </FormItem>
                             )}
                           />
                         </div>
-                        <TimePickerDemo disabled={!businessHoursForm.watch("wednesdayEnabled")} defaultValue="09:00" />
-                        <TimePickerDemo disabled={!businessHoursForm.watch("wednesdayEnabled")} defaultValue="17:00" />
+                        <TimePickerDemo
+                          disabled={
+                            !businessHoursForm.watch("wednesdayEnabled")
+                          }
+                          defaultValue="09:00"
+                        />
+                        <TimePickerDemo
+                          disabled={
+                            !businessHoursForm.watch("wednesdayEnabled")
+                          }
+                          defaultValue="17:00"
+                        />
                       </div>
 
                       <div className="grid grid-cols-[120px_1fr_1fr] gap-4 items-center">
@@ -722,15 +909,26 @@ export function CompanySettings() {
                             render={({ field }) => (
                               <FormItem className="flex items-center space-x-2">
                                 <FormControl>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                 </FormControl>
-                                <FormLabel className="!mt-0">Thursday</FormLabel>
+                                <FormLabel className="!mt-0">
+                                  Thursday
+                                </FormLabel>
                               </FormItem>
                             )}
                           />
                         </div>
-                        <TimePickerDemo disabled={!businessHoursForm.watch("thursdayEnabled")} defaultValue="09:00" />
-                        <TimePickerDemo disabled={!businessHoursForm.watch("thursdayEnabled")} defaultValue="17:00" />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("thursdayEnabled")}
+                          defaultValue="09:00"
+                        />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("thursdayEnabled")}
+                          defaultValue="17:00"
+                        />
                       </div>
 
                       <div className="grid grid-cols-[120px_1fr_1fr] gap-4 items-center">
@@ -741,15 +939,24 @@ export function CompanySettings() {
                             render={({ field }) => (
                               <FormItem className="flex items-center space-x-2">
                                 <FormControl>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                 </FormControl>
                                 <FormLabel className="!mt-0">Friday</FormLabel>
                               </FormItem>
                             )}
                           />
                         </div>
-                        <TimePickerDemo disabled={!businessHoursForm.watch("fridayEnabled")} defaultValue="09:00" />
-                        <TimePickerDemo disabled={!businessHoursForm.watch("fridayEnabled")} defaultValue="17:00" />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("fridayEnabled")}
+                          defaultValue="09:00"
+                        />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("fridayEnabled")}
+                          defaultValue="17:00"
+                        />
                       </div>
 
                       <div className="grid grid-cols-[120px_1fr_1fr] gap-4 items-center">
@@ -760,15 +967,26 @@ export function CompanySettings() {
                             render={({ field }) => (
                               <FormItem className="flex items-center space-x-2">
                                 <FormControl>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                 </FormControl>
-                                <FormLabel className="!mt-0">Saturday</FormLabel>
+                                <FormLabel className="!mt-0">
+                                  Saturday
+                                </FormLabel>
                               </FormItem>
                             )}
                           />
                         </div>
-                        <TimePickerDemo disabled={!businessHoursForm.watch("saturdayEnabled")} defaultValue="10:00" />
-                        <TimePickerDemo disabled={!businessHoursForm.watch("saturdayEnabled")} defaultValue="15:00" />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("saturdayEnabled")}
+                          defaultValue="10:00"
+                        />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("saturdayEnabled")}
+                          defaultValue="15:00"
+                        />
                       </div>
 
                       <div className="grid grid-cols-[120px_1fr_1fr] gap-4 items-center">
@@ -779,15 +997,24 @@ export function CompanySettings() {
                             render={({ field }) => (
                               <FormItem className="flex items-center space-x-2">
                                 <FormControl>
-                                  <Switch checked={field.value} onCheckedChange={field.onChange} />
+                                  <Switch
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
                                 </FormControl>
                                 <FormLabel className="!mt-0">Sunday</FormLabel>
                               </FormItem>
                             )}
                           />
                         </div>
-                        <TimePickerDemo disabled={!businessHoursForm.watch("sundayEnabled")} defaultValue="10:00" />
-                        <TimePickerDemo disabled={!businessHoursForm.watch("sundayEnabled")} defaultValue="15:00" />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("sundayEnabled")}
+                          defaultValue="10:00"
+                        />
+                        <TimePickerDemo
+                          disabled={!businessHoursForm.watch("sundayEnabled")}
+                          defaultValue="15:00"
+                        />
                       </div>
                     </div>
                   </div>
@@ -807,17 +1034,24 @@ export function CompanySettings() {
       {/* Notifications Tab */}
       <TabsContent value="notifications" className="space-y-6">
         <Form {...notificationForm}>
-          <form onSubmit={notificationForm.handleSubmit(onNotificationSubmit)} className="space-y-6">
+          <form
+            onSubmit={notificationForm.handleSubmit(onNotificationSubmit)}
+            className="space-y-6"
+          >
             <Card>
               <CardHeader>
                 <CardTitle>Notification Settings</CardTitle>
-                <CardDescription>Configure how and when you receive system notifications.</CardDescription>
+                <CardDescription>
+                  Configure how and when you receive system notifications.
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-center">
                     <Bell className="h-5 w-5 mr-2 text-muted-foreground" />
-                    <h3 className="text-lg font-medium">Notification Channels</h3>
+                    <h3 className="text-lg font-medium">
+                      Notification Channels
+                    </h3>
                   </div>
 
                   <FormField
@@ -826,11 +1060,18 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                         <div className="space-y-0.5">
-                          <FormLabel className="text-base">Email Notifications</FormLabel>
-                          <FormDescription>Receive notifications via email</FormDescription>
+                          <FormLabel className="text-base">
+                            Email Notifications
+                          </FormLabel>
+                          <FormDescription>
+                            Receive notifications via email
+                          </FormDescription>
                         </div>
                         <FormControl>
-                          <Switch checked={field.value} onCheckedChange={field.onChange} />
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -842,11 +1083,18 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                         <div className="space-y-0.5">
-                          <FormLabel className="text-base">SMS Notifications</FormLabel>
-                          <FormDescription>Receive notifications via SMS</FormDescription>
+                          <FormLabel className="text-base">
+                            SMS Notifications
+                          </FormLabel>
+                          <FormDescription>
+                            Receive notifications via SMS
+                          </FormDescription>
                         </div>
                         <FormControl>
-                          <Switch checked={field.value} onCheckedChange={field.onChange} />
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -858,11 +1106,18 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                         <div className="space-y-0.5">
-                          <FormLabel className="text-base">In-App Notifications</FormLabel>
-                          <FormDescription>Receive notifications within the application</FormDescription>
+                          <FormLabel className="text-base">
+                            In-App Notifications
+                          </FormLabel>
+                          <FormDescription>
+                            Receive notifications within the application
+                          </FormDescription>
                         </div>
                         <FormControl>
-                          <Switch checked={field.value} onCheckedChange={field.onChange} />
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -880,11 +1135,18 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                         <div className="space-y-0.5">
-                          <FormLabel className="text-base">Daily Digest</FormLabel>
-                          <FormDescription>Receive a daily summary of activities</FormDescription>
+                          <FormLabel className="text-base">
+                            Daily Digest
+                          </FormLabel>
+                          <FormDescription>
+                            Receive a daily summary of activities
+                          </FormDescription>
                         </div>
                         <FormControl>
-                          <Switch checked={field.value} onCheckedChange={field.onChange} />
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -896,11 +1158,18 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                         <div className="space-y-0.5">
-                          <FormLabel className="text-base">Weekly Report</FormLabel>
-                          <FormDescription>Receive a weekly performance report</FormDescription>
+                          <FormLabel className="text-base">
+                            Weekly Report
+                          </FormLabel>
+                          <FormDescription>
+                            Receive a weekly performance report
+                          </FormDescription>
                         </div>
                         <FormControl>
-                          <Switch checked={field.value} onCheckedChange={field.onChange} />
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -912,11 +1181,18 @@ export function CompanySettings() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                         <div className="space-y-0.5">
-                          <FormLabel className="text-base">Critical Alerts</FormLabel>
-                          <FormDescription>Receive notifications for critical system events</FormDescription>
+                          <FormLabel className="text-base">
+                            Critical Alerts
+                          </FormLabel>
+                          <FormDescription>
+                            Receive notifications for critical system events
+                          </FormDescription>
                         </div>
                         <FormControl>
-                          <Switch checked={field.value} onCheckedChange={field.onChange} />
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
                         </FormControl>
                       </FormItem>
                     )}
@@ -934,5 +1210,5 @@ export function CompanySettings() {
         </Form>
       </TabsContent>
     </Tabs>
-  )
+  );
 }

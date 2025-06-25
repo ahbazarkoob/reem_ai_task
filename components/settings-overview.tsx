@@ -113,11 +113,11 @@ export function SettingsOverview() {
 
       <Tabs defaultValue="general" className="space-y-6">
         <TabsList className="grid grid-cols-5 w-full max-w-4xl">
-          <TabsTrigger value="general">General</TabsTrigger>
-          <TabsTrigger value="appearance">Appearance</TabsTrigger>
-          <TabsTrigger value="localization">Localization</TabsTrigger>
-          <TabsTrigger value="security">Security</TabsTrigger>
-          <TabsTrigger value="data">Data Management</TabsTrigger>
+          <TabsTrigger value="general" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">General</TabsTrigger>
+          <TabsTrigger value="appearance" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Appearance</TabsTrigger>
+          <TabsTrigger value="localization" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Localization</TabsTrigger>
+          <TabsTrigger value="security" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Security</TabsTrigger>
+          <TabsTrigger value="data" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Data Management</TabsTrigger>
         </TabsList>
 
         {/* General Settings Tab */}

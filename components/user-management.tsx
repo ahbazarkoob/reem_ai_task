@@ -1,22 +1,42 @@
-"use client"
+"use client";
 
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/textarea";
 
-import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
-import { toast } from "@/components/ui/use-toast"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
+import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { toast } from "@/components/ui/use-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -24,8 +44,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+} from "@/components/ui/dialog";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   MoreHorizontal,
   Search,
@@ -45,7 +72,7 @@ import {
   Lock,
   Unlock,
   RotateCw,
-} from "lucide-react"
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -53,23 +80,29 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 const userFormSchema = z.object({
-  firstName: z.string().min(2, { message: "First name must be at least 2 characters." }),
-  lastName: z.string().min(2, { message: "Last name must be at least 2 characters." }),
+  firstName: z
+    .string()
+    .min(2, { message: "First name must be at least 2 characters." }),
+  lastName: z
+    .string()
+    .min(2, { message: "Last name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   role: z.string().min(1, { message: "Please select a role." }),
   department: z.string().optional(),
   isActive: z.boolean().default(true),
   sendInvite: z.boolean().default(true),
-})
+});
 
 const roleFormSchema = z.object({
-  name: z.string().min(2, { message: "Role name must be at least 2 characters." }),
+  name: z
+    .string()
+    .min(2, { message: "Role name must be at least 2 characters." }),
   description: z.string().optional(),
   permissions: z.record(z.boolean()).default({}),
-})
+});
 
 const permissionGroups = [
   {
@@ -126,7 +159,7 @@ const permissionGroups = [
       { id: "settings.billing", name: "Manage Billing" },
     ],
   },
-]
+];
 
 const mockUsers = [
   {
@@ -199,7 +232,7 @@ const mockUsers = [
     status: "active",
     lastActive: "2023-05-15T08:30:00Z",
   },
-]
+];
 
 const mockRoles = [
   {
@@ -250,18 +283,18 @@ const mockRoles = [
     isDefault: false,
     isSystem: false,
   },
-]
+];
 
 export function UserManagement() {
-  const [activeTab, setActiveTab] = useState("users")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
-  const [roleFilter, setRoleFilter] = useState("all")
-  const [departmentFilter, setDepartmentFilter] = useState("all")
-  const [showAddUserDialog, setShowAddUserDialog] = useState(false)
-  const [showAddRoleDialog, setShowAddRoleDialog] = useState(false)
-  const [users, setUsers] = useState(mockUsers)
-  const [roles, setRoles] = useState(mockRoles)
+  const [activeTab, setActiveTab] = useState("users");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [departmentFilter, setDepartmentFilter] = useState("all");
+  const [showAddUserDialog, setShowAddUserDialog] = useState(false);
+  const [showAddRoleDialog, setShowAddRoleDialog] = useState(false);
+  const [users, setUsers] = useState(mockUsers);
+  const [roles, setRoles] = useState(mockRoles);
 
   const userForm = useForm<z.infer<typeof userFormSchema>>({
     resolver: zodResolver(userFormSchema),
@@ -274,7 +307,7 @@ export function UserManagement() {
       isActive: true,
       sendInvite: true,
     },
-  })
+  });
 
   const roleForm = useForm<z.infer<typeof roleFormSchema>>({
     resolver: zodResolver(roleFormSchema),
@@ -283,7 +316,7 @@ export function UserManagement() {
       description: "",
       permissions: {},
     },
-  })
+  });
 
   function onUserSubmit(values: z.infer<typeof userFormSchema>) {
     // In a real app, this would send the data to your API
@@ -296,18 +329,18 @@ export function UserManagement() {
       department: values.department || "Unassigned",
       status: values.isActive ? "active" : "inactive",
       lastActive: null,
-    }
+    };
 
-    setUsers([...users, newUser])
-    setShowAddUserDialog(false)
-    userForm.reset()
+    setUsers([...users, newUser]);
+    setShowAddUserDialog(false);
+    userForm.reset();
 
     toast({
       title: "User added successfully",
       description: values.sendInvite
         ? `An invitation email has been sent to ${values.email}`
         : `${values.firstName} ${values.lastName} has been added`,
-    })
+    });
   }
 
   function onRoleSubmit(values: z.infer<typeof roleFormSchema>) {
@@ -319,49 +352,49 @@ export function UserManagement() {
       userCount: 0,
       isDefault: false,
       isSystem: false,
-    }
+    };
 
-    setRoles([...roles, newRole])
-    setShowAddRoleDialog(false)
-    roleForm.reset()
+    setRoles([...roles, newRole]);
+    setShowAddRoleDialog(false);
+    roleForm.reset();
 
     toast({
       title: "Role created successfully",
       description: `The role "${values.name}" has been created`,
-    })
+    });
   }
 
   function handleDeleteUser(userId: string) {
-    setUsers(users.filter((user) => user.id !== userId))
+    setUsers(users.filter((user) => user.id !== userId));
     toast({
       title: "User deleted",
       description: "The user has been removed from the system",
-    })
+    });
   }
 
   function handleToggleUserStatus(userId: string) {
     setUsers(
       users.map((user) => {
         if (user.id === userId) {
-          const newStatus = user.status === "active" ? "inactive" : "active"
-          return { ...user, status: newStatus }
+          const newStatus = user.status === "active" ? "inactive" : "active";
+          return { ...user, status: newStatus };
         }
-        return user
-      }),
-    )
+        return user;
+      })
+    );
 
     toast({
       title: "User status updated",
       description: "The user's status has been updated",
-    })
+    });
   }
 
   function handleDeleteRole(roleId: string) {
-    setRoles(roles.filter((role) => role.id !== roleId))
+    setRoles(roles.filter((role) => role.id !== roleId));
     toast({
       title: "Role deleted",
       description: "The role has been removed from the system",
-    })
+    });
   }
 
   function handleSetDefaultRole(roleId: string) {
@@ -369,40 +402,59 @@ export function UserManagement() {
       roles.map((role) => ({
         ...role,
         isDefault: role.id === roleId,
-      })),
-    )
+      }))
+    );
 
     toast({
       title: "Default role updated",
       description: "The default role for new users has been updated",
-    })
+    });
   }
 
   // Filter users based on search and filters
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
       searchQuery === "" ||
-      `${user.firstName} ${user.lastName}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      `${user.firstName} ${user.lastName}`
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchesStatus = statusFilter === "all" || user.status === statusFilter
-    const matchesRole = roleFilter === "all" || user.role === roleFilter
-    const matchesDepartment = departmentFilter === "all" || user.department === departmentFilter
+    const matchesStatus =
+      statusFilter === "all" || user.status === statusFilter;
+    const matchesRole = roleFilter === "all" || user.role === roleFilter;
+    const matchesDepartment =
+      departmentFilter === "all" || user.department === departmentFilter;
 
-    return matchesSearch && matchesStatus && matchesRole && matchesDepartment
-  })
+    return matchesSearch && matchesStatus && matchesRole && matchesDepartment;
+  });
 
   // Get unique departments for filter
-  const departments = Array.from(new Set(users.map((user) => user.department)))
+  const departments = Array.from(new Set(users.map((user) => user.department)));
 
   // Get unique roles for filter
-  const uniqueRoles = Array.from(new Set(users.map((user) => user.role)))
+  const uniqueRoles = Array.from(new Set(users.map((user) => user.role)));
 
   return (
-    <Tabs defaultValue="users" value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+    <Tabs
+      defaultValue="users"
+      value={activeTab}
+      onValueChange={setActiveTab}
+      className="space-y-6"
+    >
       <TabsList className="grid grid-cols-2 w-full max-w-md">
-        <TabsTrigger value="users">Users</TabsTrigger>
-        <TabsTrigger value="roles">Roles & Permissions</TabsTrigger>
+        <TabsTrigger
+          value="users"
+          className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+        >
+          Users
+        </TabsTrigger>
+        <TabsTrigger
+          value="roles"
+          className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+        >
+          Roles & Permissions
+        </TabsTrigger>
       </TabsList>
 
       {/* Users Tab */}
@@ -412,7 +464,9 @@ export function UserManagement() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <CardTitle>Users</CardTitle>
-                <CardDescription>Manage users and their access to the system.</CardDescription>
+                <CardDescription>
+                  Manage users and their access to the system.
+                </CardDescription>
               </div>
               <div className="flex flex-col sm:flex-row gap-2">
                 <Button onClick={() => setShowAddUserDialog(true)}>
@@ -486,7 +540,10 @@ export function UserManagement() {
                     </SelectContent>
                   </Select>
 
-                  <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
+                  <Select
+                    value={departmentFilter}
+                    onValueChange={setDepartmentFilter}
+                  >
                     <SelectTrigger className="w-[150px]">
                       <Users className="h-4 w-4 mr-2" />
                       <SelectValue placeholder="Department" />
@@ -518,7 +575,10 @@ export function UserManagement() {
                   <TableBody>
                     {filteredUsers.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={6} className="text-center py-6 text-muted-foreground">
+                        <TableCell
+                          colSpan={6}
+                          className="text-center py-6 text-muted-foreground"
+                        >
                           No users found. Try adjusting your filters.
                         </TableCell>
                       </TableRow>
@@ -529,7 +589,9 @@ export function UserManagement() {
                             <div className="flex items-center gap-3">
                               <Avatar className="h-8 w-8">
                                 <AvatarImage
-                                  src={`/placeholder.svg?height=32&width=32&text=${user.firstName.charAt(0)}${user.lastName.charAt(0)}`}
+                                  src={`/placeholder.svg?height=32&width=32&text=${user.firstName.charAt(
+                                    0
+                                  )}${user.lastName.charAt(0)}`}
                                 />
                                 <AvatarFallback>
                                   {user.firstName.charAt(0)}
@@ -540,7 +602,9 @@ export function UserManagement() {
                                 <div className="font-medium">
                                   {user.firstName} {user.lastName}
                                 </div>
-                                <div className="text-sm text-muted-foreground">{user.email}</div>
+                                <div className="text-sm text-muted-foreground">
+                                  {user.email}
+                                </div>
                               </div>
                             </div>
                           </TableCell>
@@ -558,13 +622,19 @@ export function UserManagement() {
                               </Badge>
                             )}
                             {user.status === "inactive" && (
-                              <Badge variant="secondary" className="bg-gray-100 text-gray-800 hover:bg-gray-100">
+                              <Badge
+                                variant="secondary"
+                                className="bg-gray-100 text-gray-800 hover:bg-gray-100"
+                              >
                                 <XCircle className="h-3.5 w-3.5 mr-1" />
                                 Inactive
                               </Badge>
                             )}
                             {user.status === "pending" && (
-                              <Badge variant="outline" className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">
+                              <Badge
+                                variant="outline"
+                                className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100"
+                              >
                                 <Clock className="h-3.5 w-3.5 mr-1" />
                                 Pending
                               </Badge>
@@ -572,14 +642,19 @@ export function UserManagement() {
                           </TableCell>
                           <TableCell>
                             {user.lastActive ? (
-                              new Date(user.lastActive).toLocaleString("en-US", {
-                                month: "short",
-                                day: "numeric",
-                                hour: "numeric",
-                                minute: "numeric",
-                              })
+                              new Date(user.lastActive).toLocaleString(
+                                "en-US",
+                                {
+                                  month: "short",
+                                  day: "numeric",
+                                  hour: "numeric",
+                                  minute: "numeric",
+                                }
+                              )
                             ) : (
-                              <span className="text-muted-foreground">Never</span>
+                              <span className="text-muted-foreground">
+                                Never
+                              </span>
                             )}
                           </TableCell>
                           <TableCell className="text-right">
@@ -596,7 +671,11 @@ export function UserManagement() {
                                   <Edit className="h-4 w-4 mr-2" />
                                   Edit User
                                 </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => handleToggleUserStatus(user.id)}>
+                                <DropdownMenuItem
+                                  onClick={() =>
+                                    handleToggleUserStatus(user.id)
+                                  }
+                                >
                                   {user.status === "active" ? (
                                     <>
                                       <Lock className="h-4 w-4 mr-2" />
@@ -614,7 +693,10 @@ export function UserManagement() {
                                   Reset Password
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem className="text-red-600" onClick={() => handleDeleteUser(user.id)}>
+                                <DropdownMenuItem
+                                  className="text-red-600"
+                                  onClick={() => handleDeleteUser(user.id)}
+                                >
                                   <Trash className="h-4 w-4 mr-2" />
                                   Delete User
                                 </DropdownMenuItem>
@@ -630,7 +712,8 @@ export function UserManagement() {
 
               <div className="flex items-center justify-between">
                 <div className="text-sm text-muted-foreground">
-                  Showing <strong>{filteredUsers.length}</strong> of <strong>{users.length}</strong> users
+                  Showing <strong>{filteredUsers.length}</strong> of{" "}
+                  <strong>{users.length}</strong> users
                 </div>
                 <div className="flex items-center space-x-2">
                   <Button variant="outline" size="sm" disabled>
@@ -650,10 +733,15 @@ export function UserManagement() {
           <DialogContent className="sm:max-w-[525px]">
             <DialogHeader>
               <DialogTitle>Add New User</DialogTitle>
-              <DialogDescription>Create a new user account and set their permissions.</DialogDescription>
+              <DialogDescription>
+                Create a new user account and set their permissions.
+              </DialogDescription>
             </DialogHeader>
             <Form {...userForm}>
-              <form onSubmit={userForm.handleSubmit(onUserSubmit)} className="space-y-4">
+              <form
+                onSubmit={userForm.handleSubmit(onUserSubmit)}
+                className="space-y-4"
+              >
                 <div className="grid grid-cols-2 gap-4">
                   <FormField
                     control={userForm.control}
@@ -690,7 +778,11 @@ export function UserManagement() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="john.doe@example.com" {...field} />
+                        <Input
+                          type="email"
+                          placeholder="john.doe@example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -704,7 +796,10 @@ export function UserManagement() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Role</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a role" />
@@ -729,7 +824,10 @@ export function UserManagement() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Department</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select a department" />
@@ -741,7 +839,9 @@ export function UserManagement() {
                                 {dept}
                               </SelectItem>
                             ))}
-                            <SelectItem value="Unassigned">Unassigned</SelectItem>
+                            <SelectItem value="Unassigned">
+                              Unassigned
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -756,11 +856,18 @@ export function UserManagement() {
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-base">Active Status</FormLabel>
-                        <FormDescription>User will be able to log in immediately if active</FormDescription>
+                        <FormLabel className="text-base">
+                          Active Status
+                        </FormLabel>
+                        <FormDescription>
+                          User will be able to log in immediately if active
+                        </FormDescription>
                       </div>
                       <FormControl>
-                        <Switch checked={field.value} onCheckedChange={field.onChange} />
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
                       </FormControl>
                     </FormItem>
                   )}
@@ -772,18 +879,29 @@ export function UserManagement() {
                   render={({ field }) => (
                     <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-base">Send Invitation Email</FormLabel>
-                        <FormDescription>Send an email invitation to set up their account</FormDescription>
+                        <FormLabel className="text-base">
+                          Send Invitation Email
+                        </FormLabel>
+                        <FormDescription>
+                          Send an email invitation to set up their account
+                        </FormDescription>
                       </div>
                       <FormControl>
-                        <Switch checked={field.value} onCheckedChange={field.onChange} />
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
                       </FormControl>
                     </FormItem>
                   )}
                 />
 
                 <DialogFooter>
-                  <Button type="button" variant="outline" onClick={() => setShowAddUserDialog(false)}>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowAddUserDialog(false)}
+                  >
                     Cancel
                   </Button>
                   <Button type="submit">Add User</Button>
@@ -801,7 +919,9 @@ export function UserManagement() {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <CardTitle>Roles & Permissions</CardTitle>
-                <CardDescription>Manage roles and their associated permissions.</CardDescription>
+                <CardDescription>
+                  Manage roles and their associated permissions.
+                </CardDescription>
               </div>
               <Button onClick={() => setShowAddRoleDialog(true)}>
                 <Shield className="h-4 w-4 mr-2" />
@@ -837,15 +957,23 @@ export function UserManagement() {
                         </TableCell>
                         <TableCell>{role.description}</TableCell>
                         <TableCell>
-                          <Badge variant="secondary">{role.userCount} users</Badge>
+                          <Badge variant="secondary">
+                            {role.userCount} users
+                          </Badge>
                         </TableCell>
                         <TableCell>
                           {role.isSystem ? (
-                            <Badge variant="outline" className="bg-blue-100 text-blue-800 hover:bg-blue-100">
+                            <Badge
+                              variant="outline"
+                              className="bg-blue-100 text-blue-800 hover:bg-blue-100"
+                            >
                               System
                             </Badge>
                           ) : (
-                            <Badge variant="outline" className="bg-green-100 text-green-800 hover:bg-green-100">
+                            <Badge
+                              variant="outline"
+                              className="bg-green-100 text-green-800 hover:bg-green-100"
+                            >
                               Custom
                             </Badge>
                           )}
@@ -869,14 +997,19 @@ export function UserManagement() {
                                 View Permissions
                               </DropdownMenuItem>
                               {!role.isDefault && (
-                                <DropdownMenuItem onClick={() => handleSetDefaultRole(role.id)}>
+                                <DropdownMenuItem
+                                  onClick={() => handleSetDefaultRole(role.id)}
+                                >
                                   <CheckCircle2 className="h-4 w-4 mr-2" />
                                   Set as Default
                                 </DropdownMenuItem>
                               )}
                               <DropdownMenuSeparator />
                               {!role.isSystem && (
-                                <DropdownMenuItem className="text-red-600" onClick={() => handleDeleteRole(role.id)}>
+                                <DropdownMenuItem
+                                  className="text-red-600"
+                                  onClick={() => handleDeleteRole(role.id)}
+                                >
                                   <Trash className="h-4 w-4 mr-2" />
                                   Delete Role
                                 </DropdownMenuItem>
@@ -898,10 +1031,15 @@ export function UserManagement() {
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
               <DialogTitle>Create New Role</DialogTitle>
-              <DialogDescription>Define a new role and set its permissions.</DialogDescription>
+              <DialogDescription>
+                Define a new role and set its permissions.
+              </DialogDescription>
             </DialogHeader>
             <Form {...roleForm}>
-              <form onSubmit={roleForm.handleSubmit(onRoleSubmit)} className="space-y-4">
+              <form
+                onSubmit={roleForm.handleSubmit(onRoleSubmit)}
+                className="space-y-4"
+              >
                 <FormField
                   control={roleForm.control}
                   name="name"
@@ -909,7 +1047,10 @@ export function UserManagement() {
                     <FormItem>
                       <FormLabel>Role Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Marketing Manager" {...field} />
+                        <Input
+                          placeholder="e.g., Marketing Manager"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -949,10 +1090,15 @@ export function UserManagement() {
                               render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-3">
                                   <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                    <Checkbox
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                    />
                                   </FormControl>
                                   <div className="space-y-1 leading-none">
-                                    <FormLabel className="text-sm font-medium">{permission.name}</FormLabel>
+                                    <FormLabel className="text-sm font-medium">
+                                      {permission.name}
+                                    </FormLabel>
                                   </div>
                                 </FormItem>
                               )}
@@ -965,7 +1111,11 @@ export function UserManagement() {
                 </div>
 
                 <DialogFooter>
-                  <Button type="button" variant="outline" onClick={() => setShowAddRoleDialog(false)}>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowAddRoleDialog(false)}
+                  >
                     Cancel
                   </Button>
                   <Button type="submit">Create Role</Button>
@@ -976,5 +1126,5 @@ export function UserManagement() {
         </Dialog>
       </TabsContent>
     </Tabs>
-  )
+  );
 }

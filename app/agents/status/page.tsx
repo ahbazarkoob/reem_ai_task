@@ -38,10 +38,10 @@ export default function AgentStatusPage() {
 
       <Tabs defaultValue="active" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="active">Active Agents</TabsTrigger>
-          <TabsTrigger value="all">All Agents</TabsTrigger>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
-          <TabsTrigger value="history">History</TabsTrigger>
+          <TabsTrigger value="active" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Active Agents</TabsTrigger>
+          <TabsTrigger value="all" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">All Agents</TabsTrigger>
+          <TabsTrigger value="performance" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Performance</TabsTrigger>
+          <TabsTrigger value="history" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">History</TabsTrigger>
         </TabsList>
 
         <TabsContent value="active" className="space-y-4">

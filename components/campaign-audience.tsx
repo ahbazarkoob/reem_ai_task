@@ -228,10 +228,30 @@ export function CampaignAudience() {
 
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="all">All Contacts</TabsTrigger>
-          <TabsTrigger value="contacted">Contacted</TabsTrigger>
-          <TabsTrigger value="responded">Responded</TabsTrigger>
-          <TabsTrigger value="converted">Converted</TabsTrigger>
+          <TabsTrigger
+            value="all"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            All Contacts
+          </TabsTrigger>
+          <TabsTrigger
+            value="contacted"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Contacted
+          </TabsTrigger>
+          <TabsTrigger
+            value="responded"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Responded
+          </TabsTrigger>
+          <TabsTrigger
+            value="converted"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Converted
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="all">

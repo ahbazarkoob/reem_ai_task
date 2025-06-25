@@ -1,11 +1,40 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell } from "recharts"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  ChartContainer,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "@/components/ui/chart";
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 // Sample data for charts
 const callVolumeData = [
@@ -16,7 +45,7 @@ const callVolumeData = [
   { name: "Fri", sales: 38, support: 26, scheduling: 23 },
   { name: "Sat", sales: 25, support: 18, scheduling: 15 },
   { name: "Sun", sales: 20, support: 15, scheduling: 12 },
-]
+];
 
 const responseTimeData = [
   { name: "Mon", sales: 1.2, support: 1.5, scheduling: 0.9 },
@@ -26,15 +55,15 @@ const responseTimeData = [
   { name: "Fri", sales: 1.2, support: 1.5, scheduling: 0.9 },
   { name: "Sat", sales: 1.5, support: 1.7, scheduling: 1.2 },
   { name: "Sun", sales: 1.3, support: 1.6, scheduling: 1.0 },
-]
+];
 
 const satisfactionData = [
   { name: "Sales", value: 85 },
   { name: "Support", value: 92 },
   { name: "Scheduling", value: 78 },
-]
+];
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28"]
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28"];
 
 const transferRateData = [
   { name: "Mon", sales: 12, support: 8, scheduling: 5 },
@@ -44,16 +73,16 @@ const transferRateData = [
   { name: "Fri", sales: 13, support: 8, scheduling: 5 },
   { name: "Sat", sales: 9, support: 5, scheduling: 3 },
   { name: "Sun", sales: 8, support: 4, scheduling: 2 },
-]
+];
 
 export function AgentPerformanceMetrics() {
-  const [timeRange, setTimeRange] = useState("7d")
+  const [timeRange, setTimeRange] = useState("7d");
 
   const chartConfig = {
     sales: { label: "Sales", color: "#0088FE" },
     support: { label: "Support", color: "#00C49F" },
     scheduling: { label: "Scheduling", color: "#FFBB28" },
-  }
+  };
 
   return (
     <div className="space-y-4">
@@ -74,17 +103,39 @@ export function AgentPerformanceMetrics() {
 
       <Tabs defaultValue="call-volume" className="space-y-4">
         <TabsList className="grid grid-cols-4 w-full">
-          <TabsTrigger value="call-volume">Call Volume</TabsTrigger>
-          <TabsTrigger value="response-time">Response Time</TabsTrigger>
-          <TabsTrigger value="satisfaction">Satisfaction</TabsTrigger>
-          <TabsTrigger value="transfer-rate">Transfer Rate</TabsTrigger>
+          <TabsTrigger
+            value="call-volume"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Call Volume
+          </TabsTrigger>
+          <TabsTrigger
+            value="response-time"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Response Time
+          </TabsTrigger>
+          <TabsTrigger
+            value="satisfaction"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Satisfaction
+          </TabsTrigger>
+          <TabsTrigger
+            value="transfer-rate"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Transfer Rate
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="call-volume">
           <Card>
             <CardHeader>
               <CardTitle>Call Volume by Agent Type</CardTitle>
-              <CardDescription>Number of calls handled by each agent type over time</CardDescription>
+              <CardDescription>
+                Number of calls handled by each agent type over time
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[400px]">
@@ -97,7 +148,11 @@ export function AgentPerformanceMetrics() {
                     <ChartLegend content={<ChartLegendContent />} />
                     <Bar dataKey="sales" fill="#0088FE" name="Sales" />
                     <Bar dataKey="support" fill="#00C49F" name="Support" />
-                    <Bar dataKey="scheduling" fill="#FFBB28" name="Scheduling" />
+                    <Bar
+                      dataKey="scheduling"
+                      fill="#FFBB28"
+                      name="Scheduling"
+                    />
                   </BarChart>
                 </ChartContainer>
               </div>
@@ -109,7 +164,9 @@ export function AgentPerformanceMetrics() {
           <Card>
             <CardHeader>
               <CardTitle>Average Response Time</CardTitle>
-              <CardDescription>Average time (in seconds) for agents to respond to queries</CardDescription>
+              <CardDescription>
+                Average time (in seconds) for agents to respond to queries
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[400px]">
@@ -120,9 +177,24 @@ export function AgentPerformanceMetrics() {
                     <YAxis />
                     <Tooltip content={<ChartTooltipContent />} />
                     <ChartLegend content={<ChartLegendContent />} />
-                    <Line type="monotone" dataKey="sales" stroke="#0088FE" name="Sales" />
-                    <Line type="monotone" dataKey="support" stroke="#00C49F" name="Support" />
-                    <Line type="monotone" dataKey="scheduling" stroke="#FFBB28" name="Scheduling" />
+                    <Line
+                      type="monotone"
+                      dataKey="sales"
+                      stroke="#0088FE"
+                      name="Sales"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="support"
+                      stroke="#00C49F"
+                      name="Support"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="scheduling"
+                      stroke="#FFBB28"
+                      name="Scheduling"
+                    />
                   </LineChart>
                 </ChartContainer>
               </div>
@@ -134,7 +206,9 @@ export function AgentPerformanceMetrics() {
           <Card>
             <CardHeader>
               <CardTitle>Customer Satisfaction Score</CardTitle>
-              <CardDescription>Average satisfaction rating (0-100) by agent type</CardDescription>
+              <CardDescription>
+                Average satisfaction rating (0-100) by agent type
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[400px]">
@@ -151,7 +225,10 @@ export function AgentPerformanceMetrics() {
                       label={({ name, value }) => `${name}: ${value}%`}
                     >
                       {satisfactionData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
                       ))}
                     </Pie>
                     <Tooltip content={<ChartTooltipContent />} />
@@ -167,7 +244,9 @@ export function AgentPerformanceMetrics() {
           <Card>
             <CardHeader>
               <CardTitle>Human Transfer Rate</CardTitle>
-              <CardDescription>Percentage of calls transferred to human agents</CardDescription>
+              <CardDescription>
+                Percentage of calls transferred to human agents
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[400px]">
@@ -178,9 +257,24 @@ export function AgentPerformanceMetrics() {
                     <YAxis />
                     <Tooltip content={<ChartTooltipContent />} />
                     <ChartLegend content={<ChartLegendContent />} />
-                    <Line type="monotone" dataKey="sales" stroke="#0088FE" name="Sales" />
-                    <Line type="monotone" dataKey="support" stroke="#00C49F" name="Support" />
-                    <Line type="monotone" dataKey="scheduling" stroke="#FFBB28" name="Scheduling" />
+                    <Line
+                      type="monotone"
+                      dataKey="sales"
+                      stroke="#0088FE"
+                      name="Sales"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="support"
+                      stroke="#00C49F"
+                      name="Support"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="scheduling"
+                      stroke="#FFBB28"
+                      name="Scheduling"
+                    />
                   </LineChart>
                 </ChartContainer>
               </div>
@@ -189,5 +283,5 @@ export function AgentPerformanceMetrics() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

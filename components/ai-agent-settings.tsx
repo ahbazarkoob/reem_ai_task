@@ -62,13 +62,13 @@ export function AIAgentSettings() {
     <div className="space-y-6">
       <Tabs defaultValue="sales" value={activeAgent} onValueChange={setActiveAgent} className="space-y-4">
         <TabsList className="grid grid-cols-3 w-full">
-          <TabsTrigger value="sales" className="flex items-center gap-2">
+          <TabsTrigger value="sales" className="flex items-center gap-2 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">
             <Bot className="h-4 w-4" /> Sales
           </TabsTrigger>
-          <TabsTrigger value="support" className="flex items-center gap-2">
+          <TabsTrigger value="support" className="flex items-center gap-2 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">
             <Bot className="h-4 w-4" /> Support
           </TabsTrigger>
-          <TabsTrigger value="appointment" className="flex items-center gap-2">
+          <TabsTrigger value="appointment" className="flex items-center gap-2 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">
             <Bot className="h-4 w-4" /> Appointment
           </TabsTrigger>
         </TabsList>

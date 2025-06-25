@@ -164,8 +164,18 @@ export function CallInterface() {
 
       <Tabs defaultValue="dialer" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="dialer">Dialer</TabsTrigger>
-          <TabsTrigger value="controls">Controls</TabsTrigger>
+          <TabsTrigger
+            value="dialer"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Dialer
+          </TabsTrigger>
+          <TabsTrigger
+            value="controls"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Controls
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="dialer">

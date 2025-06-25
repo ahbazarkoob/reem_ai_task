@@ -33,10 +33,10 @@ export function CampaignSettings({ campaignType }: CampaignSettingsProps) {
 
       <Tabs defaultValue="general" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="general">General</TabsTrigger>
-          <TabsTrigger value="ai">AI Configuration</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger>
-          <TabsTrigger value="integrations">Integrations</TabsTrigger>
+          <TabsTrigger value="general" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">General</TabsTrigger>
+          <TabsTrigger value="ai" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">AI Configuration</TabsTrigger>
+          <TabsTrigger value="notifications" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Notifications</TabsTrigger>
+          <TabsTrigger value="integrations" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Integrations</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general" className="space-y-4">

@@ -1,4 +1,4 @@
-import { DashboardLayout } from "@/components/dashboard-layout"
+
 import { ContactImport } from "@/components/contact-import"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
@@ -6,7 +6,6 @@ import Link from "next/link"
 
 export default function ImportContactsPage() {
   return (
-    <DashboardLayout>
       <div className="space-y-6">
         <div className="flex items-center gap-4">
           <Button variant="outline" size="icon" asChild>
@@ -23,6 +22,5 @@ export default function ImportContactsPage() {
 
         <ContactImport />
       </div>
-    </DashboardLayout>
   )
 }

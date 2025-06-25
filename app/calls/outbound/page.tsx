@@ -1,31 +1,61 @@
-import { CallInterface } from "@/components/call-interface"
-import { ContactSelector } from "@/components/contact-selector"
-import { OutboundCallRecords } from "@/components/outbound-call-records"
-import { AIScriptEditor } from "@/components/ai-script-editor"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { CallInterface } from "@/components/call-interface";
+import { ContactSelector } from "@/components/contact-selector";
+import { OutboundCallRecords } from "@/components/outbound-call-records";
+import { AIScriptEditor } from "@/components/ai-script-editor";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function OutboundCallsPage() {
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Outbound Calls</h2>
-        <p className="text-muted-foreground">Manage AI-driven outbound calls to your contacts.</p>
+        <p className="text-muted-foreground">
+          Manage AI-driven outbound calls to your contacts.
+        </p>
       </div>
 
       <Tabs defaultValue="records" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="records">Call Records</TabsTrigger>
-          <TabsTrigger value="dialer">Manual Dialer</TabsTrigger>
-          <TabsTrigger value="contacts">Contacts</TabsTrigger>
-          <TabsTrigger value="scripts">AI Scripts</TabsTrigger>
+          <TabsTrigger
+            value="records"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Call Records
+          </TabsTrigger>
+          <TabsTrigger
+            value="dialer"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Manual Dialer
+          </TabsTrigger>
+          <TabsTrigger
+            value="contacts"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Contacts
+          </TabsTrigger>
+          <TabsTrigger
+            value="scripts"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            AI Scripts
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="records" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Outbound Call Records</CardTitle>
-              <CardDescription>History of AI-driven outbound calls</CardDescription>
+              <CardDescription>
+                History of AI-driven outbound calls
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <OutboundCallRecords />
@@ -38,7 +68,9 @@ export default function OutboundCallsPage() {
             <Card className="md:col-span-1">
               <CardHeader>
                 <CardTitle>Call Interface</CardTitle>
-                <CardDescription>Make outbound calls to your contacts</CardDescription>
+                <CardDescription>
+                  Make outbound calls to your contacts
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <CallInterface />
@@ -48,7 +80,9 @@ export default function OutboundCallsPage() {
             <Card className="md:col-span-1">
               <CardHeader>
                 <CardTitle>Recent Contacts</CardTitle>
-                <CardDescription>Quickly call your recent contacts</CardDescription>
+                <CardDescription>
+                  Quickly call your recent contacts
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <ContactSelector variant="recent" />
@@ -73,7 +107,9 @@ export default function OutboundCallsPage() {
           <Card>
             <CardHeader>
               <CardTitle>AI Call Scripts</CardTitle>
-              <CardDescription>Configure scripts for AI-driven outbound calls</CardDescription>
+              <CardDescription>
+                Configure scripts for AI-driven outbound calls
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <AIScriptEditor />
@@ -82,5 +118,5 @@ export default function OutboundCallsPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

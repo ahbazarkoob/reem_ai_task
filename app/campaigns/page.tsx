@@ -25,14 +25,14 @@ export default function CampaignsPage() {
 
       <Tabs defaultValue="all" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="all">All Campaigns</TabsTrigger>
-          <TabsTrigger value="call" className="flex items-center gap-1">
+          <TabsTrigger value="all" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">All Campaigns</TabsTrigger>
+          <TabsTrigger value="call" className="flex items-center gap-1 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">
             <Phone className="h-4 w-4" /> Call
           </TabsTrigger>
-          <TabsTrigger value="sms" className="flex items-center gap-1">
+          <TabsTrigger value="sms" className="flex items-center gap-1 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">
             <MessageSquare className="h-4 w-4" /> SMS
           </TabsTrigger>
-          <TabsTrigger value="email" className="flex items-center gap-1">
+          <TabsTrigger value="email" className="flex items-center gap-1 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">
             <Mail className="h-4 w-4" /> Email
           </TabsTrigger>
         </TabsList>

@@ -1,14 +1,19 @@
-import type { Metadata } from "next"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AnalyticsDashboard } from "@/components/analytics-dashboard"
-import { ReportsList } from "@/components/reports-list"
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
-import { Home } from "lucide-react"
+import type { Metadata } from "next";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AnalyticsDashboard } from "@/components/analytics-dashboard";
+import { ReportsList } from "@/components/reports-list";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Home } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Analytics & Reports | AI Campaign Dashboard",
   description: "View analytics and generate reports for your AI campaigns",
-}
+};
 
 export default function AnalyticsPage() {
   return (
@@ -22,20 +27,51 @@ export default function AnalyticsPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/analytics">Analytics & Reports</BreadcrumbLink>
+            <BreadcrumbLink href="/analytics">
+              Analytics & Reports
+            </BreadcrumbLink>
           </BreadcrumbItem>
         </Breadcrumb>
-        <h2 className="text-3xl font-bold tracking-tight">Analytics & Reports</h2>
-        <p className="text-muted-foreground">View detailed analytics and generate reports for your AI campaigns</p>
+        <h2 className="text-3xl font-bold tracking-tight">
+          Analytics & Reports
+        </h2>
+        <p className="text-muted-foreground">
+          View detailed analytics and generate reports for your AI campaigns
+        </p>
       </div>
 
       <Tabs defaultValue="dashboard" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-          <TabsTrigger value="campaigns">Campaign Reports</TabsTrigger>
-          <TabsTrigger value="agents">Agent Reports</TabsTrigger>
-          <TabsTrigger value="contacts">Contact Reports</TabsTrigger>
-          <TabsTrigger value="custom">Custom Reports</TabsTrigger>
+          <TabsTrigger
+            value="dashboard"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Dashboard
+          </TabsTrigger>
+          <TabsTrigger
+            value="campaigns"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Campaign Reports
+          </TabsTrigger>
+          <TabsTrigger
+            value="agents"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Agent Reports
+          </TabsTrigger>
+          <TabsTrigger
+            value="contacts"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Contact Reports
+          </TabsTrigger>
+          <TabsTrigger
+            value="custom"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Custom Reports
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="dashboard" className="space-y-4">
@@ -59,5 +95,5 @@ export default function AnalyticsPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

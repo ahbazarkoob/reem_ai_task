@@ -39,10 +39,10 @@ export function ContactForm() {
     <div className="space-y-6">
       <Tabs defaultValue="basic">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="basic">Basic Info</TabsTrigger>
-          <TabsTrigger value="details">Details</TabsTrigger>
-          <TabsTrigger value="address">Address</TabsTrigger>
-          <TabsTrigger value="preferences">Preferences</TabsTrigger>
+          <TabsTrigger value="basic" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Basic Info</TabsTrigger>
+          <TabsTrigger value="details" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Details</TabsTrigger>
+          <TabsTrigger value="address" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Address</TabsTrigger>
+          <TabsTrigger value="preferences" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Preferences</TabsTrigger>
         </TabsList>
 
         {/* Basic Info Tab */}

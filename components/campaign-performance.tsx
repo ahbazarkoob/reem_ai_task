@@ -124,9 +124,9 @@ export function CampaignPerformance({ campaignType }: CampaignPerformanceProps) 
 
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="responses">Responses</TabsTrigger>
-          <TabsTrigger value="timing">Timing</TabsTrigger>
+          <TabsTrigger value="overview" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Overview</TabsTrigger>
+          <TabsTrigger value="responses" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Responses</TabsTrigger>
+          <TabsTrigger value="timing" className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100">Timing</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">

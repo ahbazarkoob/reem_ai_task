@@ -1,32 +1,45 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from "@/components/ui/progress"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Badge } from "@/components/ui/badge"
-import { AlertCircle, Check, FileSpreadsheet, Upload, X } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Progress } from "@/components/ui/progress";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import { AlertCircle, Check, FileSpreadsheet, Upload, X } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function ContactImport() {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [file, setFile] = useState<File | null>(null)
-  const [progress, setProgress] = useState(0)
-  const [importComplete, setImportComplete] = useState(false)
+  const [currentStep, setCurrentStep] = useState(1);
+  const [file, setFile] = useState<File | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [importComplete, setImportComplete] = useState(false);
   const [importResults, setImportResults] = useState({
     total: 0,
     success: 0,
     skipped: 0,
     errors: 0,
-  })
+  });
 
   // Mock field mapping data
   const fieldMappings = [
@@ -42,7 +55,7 @@ export function ContactImport() {
     { csvField: "Zip", contactField: "zip", required: false },
     { csvField: "Country", contactField: "country", required: false },
     { csvField: "Tags", contactField: "tags", required: false },
-  ]
+  ];
 
   // Mock preview data
   const previewData = [
@@ -86,28 +99,28 @@ export function ContactImport() {
       company: "Stark Industries",
       jobTitle: "Software Engineer",
     },
-  ]
+  ];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0])
+      setFile(e.target.files[0]);
     }
-  }
+  };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      setFile(e.dataTransfer.files[0])
+      setFile(e.dataTransfer.files[0]);
     }
-  }
+  };
 
   const handleNextStep = () => {
     if (currentStep < 4) {
-      setCurrentStep(currentStep + 1)
+      setCurrentStep(currentStep + 1);
     }
 
     // Simulate import process
@@ -115,43 +128,59 @@ export function ContactImport() {
       const timer = setInterval(() => {
         setProgress((prevProgress) => {
           if (prevProgress >= 100) {
-            clearInterval(timer)
-            setImportComplete(true)
+            clearInterval(timer);
+            setImportComplete(true);
             setImportResults({
               total: 250,
               success: 235,
               skipped: 10,
               errors: 5,
-            })
-            return 100
+            });
+            return 100;
           }
-          return prevProgress + 5
-        })
-      }, 200)
+          return prevProgress + 5;
+        });
+      }, 200);
     }
-  }
+  };
 
   const handlePreviousStep = () => {
     if (currentStep > 1) {
-      setCurrentStep(currentStep - 1)
+      setCurrentStep(currentStep - 1);
     }
-  }
+  };
 
   return (
     <Card>
       <CardContent className="p-6">
         <Tabs value={`step-${currentStep}`} className="w-full">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="step-1" disabled>
+            <TabsTrigger
+              value="step-1"
+              disabled
+              className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+            >
               1. Upload File
             </TabsTrigger>
-            <TabsTrigger value="step-2" disabled>
+            <TabsTrigger
+              value="step-2"
+              disabled
+              className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+            >
               2. Map Fields
             </TabsTrigger>
-            <TabsTrigger value="step-3" disabled>
+            <TabsTrigger
+              value="step-3"
+              disabled
+              className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+            >
               3. Preview
             </TabsTrigger>
-            <TabsTrigger value="step-4" disabled>
+            <TabsTrigger
+              value="step-4"
+              disabled
+              className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+            >
               4. Import
             </TabsTrigger>
           </TabsList>
@@ -164,8 +193,12 @@ export function ContactImport() {
               onClick={() => document.getElementById("file-upload")?.click()}
             >
               <FileSpreadsheet className="h-10 w-10 mx-auto mb-4 text-muted-foreground" />
-              <h3 className="text-lg font-medium mb-2">Upload your CSV or Excel file</h3>
-              <p className="text-sm text-muted-foreground mb-4">Drag and drop your file here, or click to browse</p>
+              <h3 className="text-lg font-medium mb-2">
+                Upload your CSV or Excel file
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Drag and drop your file here, or click to browse
+              </p>
               <Input
                 id="file-upload"
                 type="file"
@@ -176,8 +209,8 @@ export function ContactImport() {
               <Button
                 variant="outline"
                 onClick={(e) => {
-                  e.stopPropagation()
-                  document.getElementById("file-upload")?.click()
+                  e.stopPropagation();
+                  document.getElementById("file-upload")?.click();
                 }}
               >
                 <Upload className="mr-2 h-4 w-4" />
@@ -191,7 +224,9 @@ export function ContactImport() {
                   <FileSpreadsheet className="h-8 w-8 mr-2 text-primary" />
                   <div>
                     <p className="font-medium">{file.name}</p>
-                    <p className="text-sm text-muted-foreground">{(file.size / 1024).toFixed(2)} KB</p>
+                    <p className="text-sm text-muted-foreground">
+                      {(file.size / 1024).toFixed(2)} KB
+                    </p>
                   </div>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => setFile(null)}>
@@ -204,8 +239,8 @@ export function ContactImport() {
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Important</AlertTitle>
               <AlertDescription>
-                Your CSV file should include headers in the first row. Required fields include first name, last name,
-                and email address.
+                Your CSV file should include headers in the first row. Required
+                fields include first name, last name, and email address.
               </AlertDescription>
             </Alert>
 
@@ -218,9 +253,12 @@ export function ContactImport() {
 
           <TabsContent value="step-2" className="mt-6 space-y-4">
             <div className="space-y-4">
-              <h3 className="text-lg font-medium">Map CSV Fields to Contact Fields</h3>
+              <h3 className="text-lg font-medium">
+                Map CSV Fields to Contact Fields
+              </h3>
               <p className="text-sm text-muted-foreground">
-                Match the columns from your CSV file to the appropriate contact fields
+                Match the columns from your CSV file to the appropriate contact
+                fields
               </p>
 
               <div className="rounded-md border">
@@ -242,19 +280,27 @@ export function ContactImport() {
                               <SelectValue placeholder="Select field" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="firstName">First Name</SelectItem>
-                              <SelectItem value="lastName">Last Name</SelectItem>
+                              <SelectItem value="firstName">
+                                First Name
+                              </SelectItem>
+                              <SelectItem value="lastName">
+                                Last Name
+                              </SelectItem>
                               <SelectItem value="email">Email</SelectItem>
                               <SelectItem value="phone">Phone</SelectItem>
                               <SelectItem value="company">Company</SelectItem>
-                              <SelectItem value="jobTitle">Job Title</SelectItem>
+                              <SelectItem value="jobTitle">
+                                Job Title
+                              </SelectItem>
                               <SelectItem value="address">Address</SelectItem>
                               <SelectItem value="city">City</SelectItem>
                               <SelectItem value="state">State</SelectItem>
                               <SelectItem value="zip">Zip</SelectItem>
                               <SelectItem value="country">Country</SelectItem>
                               <SelectItem value="tags">Tags</SelectItem>
-                              <SelectItem value="skip">Skip this column</SelectItem>
+                              <SelectItem value="skip">
+                                Skip this column
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                         </TableCell>
@@ -262,7 +308,9 @@ export function ContactImport() {
                           {mapping.required ? (
                             <Badge>Required</Badge>
                           ) : (
-                            <span className="text-muted-foreground">Optional</span>
+                            <span className="text-muted-foreground">
+                              Optional
+                            </span>
                           )}
                         </TableCell>
                       </TableRow>
@@ -283,7 +331,9 @@ export function ContactImport() {
           <TabsContent value="step-3" className="mt-6 space-y-4">
             <div className="space-y-4">
               <h3 className="text-lg font-medium">Preview Import Data</h3>
-              <p className="text-sm text-muted-foreground">Review the first 5 rows of data before importing</p>
+              <p className="text-sm text-muted-foreground">
+                Review the first 5 rows of data before importing
+              </p>
 
               <div className="rounded-md border overflow-x-auto">
                 <Table>
@@ -315,14 +365,19 @@ export function ContactImport() {
               <div className="space-y-4 pt-4">
                 <div className="flex items-center space-x-2">
                   <Checkbox id="update-existing" />
-                  <Label htmlFor="update-existing">Update existing contacts if email matches</Label>
+                  <Label htmlFor="update-existing">
+                    Update existing contacts if email matches
+                  </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox id="add-tag" />
                   <Label htmlFor="add-tag">Add tag to imported contacts</Label>
                 </div>
                 <div className="pl-6">
-                  <Input placeholder="Enter tag name (e.g., 'June Import')" disabled={true} />
+                  <Input
+                    placeholder="Enter tag name (e.g., 'June Import')"
+                    disabled={true}
+                  />
                 </div>
               </div>
             </div>
@@ -337,7 +392,9 @@ export function ContactImport() {
 
           <TabsContent value="step-4" className="mt-6 space-y-4">
             <div className="space-y-4">
-              <h3 className="text-lg font-medium">{importComplete ? "Import Complete" : "Importing Contacts..."}</h3>
+              <h3 className="text-lg font-medium">
+                {importComplete ? "Import Complete" : "Importing Contacts..."}
+              </h3>
               <p className="text-sm text-muted-foreground">
                 {importComplete
                   ? "Your contacts have been successfully imported"
@@ -347,7 +404,9 @@ export function ContactImport() {
               {!importComplete ? (
                 <div className="space-y-2">
                   <Progress value={progress} className="h-2 w-full" />
-                  <p className="text-sm text-right text-muted-foreground">{progress}% complete</p>
+                  <p className="text-sm text-right text-muted-foreground">
+                    {progress}% complete
+                  </p>
                 </div>
               ) : (
                 <div className="rounded-md border p-6 bg-muted/50">
@@ -357,25 +416,41 @@ export function ContactImport() {
                     </div>
                   </div>
                   <div className="text-center mb-6">
-                    <h4 className="text-xl font-medium mb-2">Import Successful</h4>
-                    <p className="text-muted-foreground">Your contacts have been imported into your database</p>
+                    <h4 className="text-xl font-medium mb-2">
+                      Import Successful
+                    </h4>
+                    <p className="text-muted-foreground">
+                      Your contacts have been imported into your database
+                    </p>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div className="p-4 rounded-md bg-background">
-                      <p className="text-sm text-muted-foreground">Total Processed</p>
-                      <p className="text-2xl font-bold">{importResults.total}</p>
+                      <p className="text-sm text-muted-foreground">
+                        Total Processed
+                      </p>
+                      <p className="text-2xl font-bold">
+                        {importResults.total}
+                      </p>
                     </div>
                     <div className="p-4 rounded-md bg-background">
-                      <p className="text-sm text-muted-foreground">Successfully Added</p>
-                      <p className="text-2xl font-bold text-green-600">{importResults.success}</p>
+                      <p className="text-sm text-muted-foreground">
+                        Successfully Added
+                      </p>
+                      <p className="text-2xl font-bold text-green-600">
+                        {importResults.success}
+                      </p>
                     </div>
                     <div className="p-4 rounded-md bg-background">
                       <p className="text-sm text-muted-foreground">Skipped</p>
-                      <p className="text-2xl font-bold text-amber-600">{importResults.skipped}</p>
+                      <p className="text-2xl font-bold text-amber-600">
+                        {importResults.skipped}
+                      </p>
                     </div>
                     <div className="p-4 rounded-md bg-background">
                       <p className="text-sm text-muted-foreground">Errors</p>
-                      <p className="text-2xl font-bold text-red-600">{importResults.errors}</p>
+                      <p className="text-2xl font-bold text-red-600">
+                        {importResults.errors}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -402,5 +477,5 @@ export function ContactImport() {
         </Tabs>
       </CardContent>
     </Card>
-  )
+  );
 }

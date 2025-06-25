@@ -1,70 +1,96 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { CalendarIcon, Check, ChevronRight, Mail, MessageSquare, Phone } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { format } from "date-fns"
-import { Switch } from "@/components/ui/switch"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  CalendarIcon,
+  Check,
+  ChevronRight,
+  Mail,
+  MessageSquare,
+  Phone,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { Switch } from "@/components/ui/switch";
 
 interface CampaignCreationWizardProps {
-  campaignType: string
+  campaignType: string;
 }
 
-export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardProps) {
-  const [step, setStep] = useState(1)
-  const [startDate, setStartDate] = useState<Date>()
-  const [endDate, setEndDate] = useState<Date>()
+export function CampaignCreationWizard({
+  campaignType,
+}: CampaignCreationWizardProps) {
+  const [step, setStep] = useState(1);
+  const [startDate, setStartDate] = useState<Date>();
+  const [endDate, setEndDate] = useState<Date>();
 
   const handleNext = () => {
-    setStep(step + 1)
-  }
+    setStep(step + 1);
+  };
 
   const handleBack = () => {
-    setStep(step - 1)
-  }
+    setStep(step - 1);
+  };
 
   const handleSubmit = () => {
     // Here you would submit the campaign data
-    console.log("Campaign created!")
+    console.log("Campaign created!");
     // Redirect to campaigns page or show success message
-    window.location.href = "/campaigns"
-  }
+    window.location.href = "/campaigns";
+  };
 
   // Get campaign type icon
   const getCampaignTypeIcon = () => {
     switch (campaignType) {
       case "call":
-        return <Phone className="h-5 w-5" />
+        return <Phone className="h-5 w-5" />;
       case "sms":
-        return <MessageSquare className="h-5 w-5" />
+        return <MessageSquare className="h-5 w-5" />;
       case "email":
-        return <Mail className="h-5 w-5" />
+        return <Mail className="h-5 w-5" />;
       default:
-        return <Mail className="h-5 w-5" />
+        return <Mail className="h-5 w-5" />;
     }
-  }
+  };
 
   // Get campaign type title
   const getCampaignTypeTitle = () => {
     switch (campaignType) {
       case "call":
-        return "Call Campaign"
+        return "Call Campaign";
       case "sms":
-        return "SMS Campaign"
+        return "SMS Campaign";
       case "email":
-        return "Email Campaign"
+        return "Email Campaign";
       default:
-        return "Campaign"
+        return "Campaign";
     }
-  }
+  };
 
   return (
     <Card className="w-full">
@@ -73,60 +99,110 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
           {getCampaignTypeIcon()}
           <div>
             <CardTitle>{getCampaignTypeTitle()} Creation</CardTitle>
-            <CardDescription>Set up your AI-driven {campaignType} campaign in a few steps</CardDescription>
+            <CardDescription>
+              Set up your AI-driven {campaignType} campaign in a few steps
+            </CardDescription>
           </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Step indicator */}
         <div className="flex justify-between">
-          <div className={`flex flex-col items-center ${step >= 1 ? "text-primary" : "text-muted-foreground"}`}>
+          <div
+            className={`flex flex-col items-center ${
+              step >= 1 ? "text-primary" : "text-muted-foreground"
+            }`}
+          >
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${step >= 1 ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground"}`}
+              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${
+                step >= 1
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-muted-foreground"
+              }`}
             >
               {step > 1 ? <Check className="h-4 w-4" /> : "1"}
             </div>
             <span className="text-xs mt-1">Basics</span>
           </div>
-          <div className="flex-1 flex items-center">
-            <div className={`h-0.5 w-full ${step > 1 ? "bg-primary" : "bg-muted"}`}></div>
-          </div>
-          <div className={`flex flex-col items-center ${step >= 2 ? "text-primary" : "text-muted-foreground"}`}>
+          <div className="flex flex-1 justify-center items-center mb-4">
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${step >= 2 ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground"}`}
+              className={`h-0.5 w-full ${step > 1 ? "bg-primary" : "bg-muted"}`}
+            ></div>
+          </div>
+          <div
+            className={`flex flex-col items-center ${
+              step >= 2 ? "text-primary" : "text-muted-foreground"
+            }`}
+          >
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${
+                step >= 2
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-muted-foreground"
+              }`}
             >
               {step > 2 ? <Check className="h-4 w-4" /> : "2"}
             </div>
             <span className="text-xs mt-1">Audience</span>
           </div>
-          <div className="flex-1 flex items-center">
-            <div className={`h-0.5 w-full ${step > 2 ? "bg-primary" : "bg-muted"}`}></div>
-          </div>
-          <div className={`flex flex-col items-center ${step >= 3 ? "text-primary" : "text-muted-foreground"}`}>
+          <div className="flex flex-1 justify-center items-center mb-4">
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${step >= 3 ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground"}`}
+              className={`h-0.5 w-full ${step > 2 ? "bg-primary" : "bg-muted"}`}
+            ></div>
+          </div>
+          <div
+            className={`flex flex-col items-center ${
+              step >= 3 ? "text-primary" : "text-muted-foreground"
+            }`}
+          >
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${
+                step >= 3
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-muted-foreground"
+              }`}
             >
               {step > 3 ? <Check className="h-4 w-4" /> : "3"}
             </div>
             <span className="text-xs mt-1">Content</span>
           </div>
-          <div className="flex-1 flex items-center">
-            <div className={`h-0.5 w-full ${step > 3 ? "bg-primary" : "bg-muted"}`}></div>
-          </div>
-          <div className={`flex flex-col items-center ${step >= 4 ? "text-primary" : "text-muted-foreground"}`}>
+          <div className="flex flex-1 justify-center items-center mb-4">
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${step >= 4 ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground"}`}
+              className={`h-0.5 w-full ${step > 3 ? "bg-primary" : "bg-muted"}`}
+            ></div>
+          </div>
+          <div
+            className={`flex flex-col items-center ${
+              step >= 4 ? "text-primary" : "text-muted-foreground"
+            }`}
+          >
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${
+                step >= 4
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-muted-foreground"
+              }`}
             >
               {step > 4 ? <Check className="h-4 w-4" /> : "4"}
             </div>
             <span className="text-xs mt-1">Schedule</span>
           </div>
-          <div className="flex-1 flex items-center">
-            <div className={`h-0.5 w-full ${step > 4 ? "bg-primary" : "bg-muted"}`}></div>
-          </div>
-          <div className={`flex flex-col items-center ${step >= 5 ? "text-primary" : "text-muted-foreground"}`}>
+          <div className="flex flex-1 justify-center items-center mb-4">
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${step >= 5 ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground"}`}
+              className={`h-0.5 w-full ${step > 4 ? "bg-primary" : "bg-muted"}`}
+            ></div>
+          </div>
+          <div
+            className={`flex flex-col items-center ${
+              step >= 5 ? "text-primary" : "text-muted-foreground"
+            }`}
+          >
+            <div
+              className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${
+                step >= 5
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-muted-foreground"
+              }`}
             >
               5
             </div>
@@ -144,7 +220,11 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
 
             <div className="space-y-2">
               <Label htmlFor="campaign-description">Description</Label>
-              <Textarea id="campaign-description" placeholder="Describe the purpose of this campaign" rows={3} />
+              <Textarea
+                id="campaign-description"
+                placeholder="Describe the purpose of this campaign"
+                rows={3}
+              />
             </div>
 
             <div className="space-y-2">
@@ -164,8 +244,13 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
 
             <div className="space-y-2">
               <Label htmlFor="campaign-tags">Tags</Label>
-              <Input id="campaign-tags" placeholder="Enter tags separated by commas" />
-              <p className="text-xs text-muted-foreground">Separate tags with commas (e.g., outreach, premium, q2)</p>
+              <Input
+                id="campaign-tags"
+                placeholder="Enter tags separated by commas"
+              />
+              <p className="text-xs text-muted-foreground">
+                Separate tags with commas (e.g., outreach, premium, q2)
+              </p>
             </div>
           </div>
         )}
@@ -180,7 +265,9 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
                   <SelectValue placeholder="Select audience source" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="existing">Existing Contact List</SelectItem>
+                  <SelectItem value="existing">
+                    Existing Contact List
+                  </SelectItem>
                   <SelectItem value="segment">Customer Segment</SelectItem>
                   <SelectItem value="import">Import New Contacts</SelectItem>
                 </SelectContent>
@@ -196,7 +283,9 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
                 <SelectContent>
                   <SelectItem value="all-customers">All Customers</SelectItem>
                   <SelectItem value="premium">Premium Customers</SelectItem>
-                  <SelectItem value="new-leads">New Leads (Last 30 Days)</SelectItem>
+                  <SelectItem value="new-leads">
+                    New Leads (Last 30 Days)
+                  </SelectItem>
                   <SelectItem value="inactive">Inactive Customers</SelectItem>
                 </SelectContent>
               </Select>
@@ -247,7 +336,9 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
                           <SelectItem value="any">Any product</SelectItem>
                           <SelectItem value="basic">Basic Plan</SelectItem>
                           <SelectItem value="premium">Premium Plan</SelectItem>
-                          <SelectItem value="enterprise">Enterprise Plan</SelectItem>
+                          <SelectItem value="enterprise">
+                            Enterprise Plan
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -281,7 +372,9 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
               <div className="h-2 bg-muted rounded-full overflow-hidden">
                 <div className="h-full bg-primary w-[45%]"></div>
               </div>
-              <p className="text-xs text-muted-foreground">Based on your current filters and audience selection</p>
+              <p className="text-xs text-muted-foreground">
+                Based on your current filters and audience selection
+              </p>
             </div>
           </div>
         )}
@@ -298,7 +391,9 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
                 <SelectContent>
                   <SelectItem value="sales">Sales Assistant</SelectItem>
                   <SelectItem value="support">Support Assistant</SelectItem>
-                  <SelectItem value="appointment">Appointment Assistant</SelectItem>
+                  <SelectItem value="appointment">
+                    Appointment Assistant
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -312,9 +407,15 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
                       <SelectValue placeholder="Select call script" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="product-upsell">Product Upsell</SelectItem>
-                      <SelectItem value="appointment-reminder">Appointment Reminder</SelectItem>
-                      <SelectItem value="feedback-survey">Feedback Survey</SelectItem>
+                      <SelectItem value="product-upsell">
+                        Product Upsell
+                      </SelectItem>
+                      <SelectItem value="appointment-reminder">
+                        Appointment Reminder
+                      </SelectItem>
+                      <SelectItem value="feedback-survey">
+                        Feedback Survey
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -336,22 +437,39 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
                       <SelectValue placeholder="Select voice type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="friendly-female">Friendly Female</SelectItem>
-                      <SelectItem value="friendly-male">Friendly Male</SelectItem>
-                      <SelectItem value="professional-female">Professional Female</SelectItem>
-                      <SelectItem value="professional-male">Professional Male</SelectItem>
+                      <SelectItem value="friendly-female">
+                        Friendly Female
+                      </SelectItem>
+                      <SelectItem value="friendly-male">
+                        Friendly Male
+                      </SelectItem>
+                      <SelectItem value="professional-female">
+                        Professional Female
+                      </SelectItem>
+                      <SelectItem value="professional-male">
+                        Professional Male
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="call-transfer">Human Transfer Threshold</Label>
+                    <Label htmlFor="call-transfer">
+                      Human Transfer Threshold
+                    </Label>
                     <span className="text-sm">70%</span>
                   </div>
-                  <Input id="call-transfer" type="range" min="0" max="100" defaultValue="70" />
+                  <Input
+                    id="call-transfer"
+                    type="range"
+                    min="0"
+                    max="100"
+                    defaultValue="70"
+                  />
                   <p className="text-xs text-muted-foreground">
-                    When AI confidence falls below this threshold, the call will be transferred to a human agent
+                    When AI confidence falls below this threshold, the call will
+                    be transferred to a human agent
                   </p>
                 </div>
 
@@ -362,7 +480,9 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
 
                 <div className="flex items-center space-x-2">
                   <Switch id="call-transcription" defaultChecked />
-                  <Label htmlFor="call-transcription">Enable Call Transcription</Label>
+                  <Label htmlFor="call-transcription">
+                    Enable Call Transcription
+                  </Label>
                 </div>
               </div>
             )}
@@ -377,8 +497,12 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="promo">Promotional Offer</SelectItem>
-                      <SelectItem value="reminder">Appointment Reminder</SelectItem>
-                      <SelectItem value="follow-up">Follow-up Message</SelectItem>
+                      <SelectItem value="reminder">
+                        Appointment Reminder
+                      </SelectItem>
+                      <SelectItem value="follow-up">
+                        Follow-up Message
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -393,19 +517,25 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
                     defaultValue="Hi {FirstName}, Acme Inc here! We're offering 20% off our premium plan just for you. Upgrade now at example.com/upgrade. Reply STOP to opt out."
                   />
                   <div className="flex justify-between text-xs">
-                    <span className="text-muted-foreground">Use {"{FirstName}"} to personalize the message</span>
+                    <span className="text-muted-foreground">
+                      Use {"{FirstName}"} to personalize the message
+                    </span>
                     <span>123/160 characters</span>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-2">
                   <Switch id="sms-opt-out" defaultChecked />
-                  <Label htmlFor="sms-opt-out">Include opt-out information</Label>
+                  <Label htmlFor="sms-opt-out">
+                    Include opt-out information
+                  </Label>
                 </div>
 
                 <div className="flex items-center space-x-2">
                   <Switch id="sms-url-shortening" defaultChecked />
-                  <Label htmlFor="sms-url-shortening">Enable URL shortening</Label>
+                  <Label htmlFor="sms-url-shortening">
+                    Enable URL shortening
+                  </Label>
                 </div>
               </div>
             )}
@@ -429,14 +559,25 @@ export function CampaignCreationWizard({ campaignType }: CampaignCreationWizardP
 
                 <div className="space-y-2">
                   <Label htmlFor="email-subject">Subject Line</Label>
-                  <Input id="email-subject" defaultValue="Special offer just for you, {FirstName}" />
+                  <Input
+                    id="email-subject"
+                    defaultValue="Special offer just for you, {FirstName}"
+                  />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="email-sender">Sender Information</Label>
                   <div className="grid grid-cols-2 gap-4">
-                    <Input id="email-sender-name" placeholder="Sender Name" defaultValue="Acme Inc" />
-                    <Input id="email-sender-email" placeholder="Sender Email" defaultValue="marketing@acmeinc.com" />
+                    <Input
+                      id="email-sender-name"
+                      placeholder="Sender Name"
+                      defaultValue="Acme Inc"
+                    />
+                    <Input
+                      id="email-sender-email"
+                      placeholder="Sender Email"
+                      defaultValue="marketing@acmeinc.com"
+                    />
                   </div>
                 </div>
 
@@ -466,25 +607,34 @@ The Acme Inc Team"
 
                 <div className="flex items-center space-x-2">
                   <Switch id="email-personalize" defaultChecked />
-                  <Label htmlFor="email-personalize">Use AI to personalize content for each recipient</Label>
+                  <Label htmlFor="email-personalize">
+                    Use AI to personalize content for each recipient
+                  </Label>
                 </div>
               </div>
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="ai-personalization">AI Personalization Level</Label>
+              <Label htmlFor="ai-personalization">
+                AI Personalization Level
+              </Label>
               <Select defaultValue="medium">
                 <SelectTrigger id="ai-personalization">
                   <SelectValue placeholder="Select personalization level" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="low">Basic (Name, Company)</SelectItem>
-                  <SelectItem value="medium">Standard (+ Purchase History, Preferences)</SelectItem>
-                  <SelectItem value="high">Advanced (+ Behavioral Analysis, Predictive)</SelectItem>
+                  <SelectItem value="medium">
+                    Standard (+ Purchase History, Preferences)
+                  </SelectItem>
+                  <SelectItem value="high">
+                    Advanced (+ Behavioral Analysis, Predictive)
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground">
-                Higher personalization may improve engagement but requires more processing time
+                Higher personalization may improve engagement but requires more
+                processing time
               </p>
             </div>
           </div>
@@ -502,15 +652,22 @@ The Acme Inc Team"
                       variant={"outline"}
                       className={cn(
                         "w-full justify-start text-left font-normal",
-                        !startDate && "text-muted-foreground",
+                        !startDate && "text-muted-foreground"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {startDate ? format(startDate, "PPP") : "Select start date"}
+                      {startDate
+                        ? format(startDate, "PPP")
+                        : "Select start date"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
-                    <Calendar mode="single" selected={startDate} onSelect={setStartDate} initialFocus />
+                    <Calendar
+                      mode="single"
+                      selected={startDate}
+                      onSelect={setStartDate}
+                      initialFocus
+                    />
                   </PopoverContent>
                 </Popover>
               </div>
@@ -521,14 +678,22 @@ The Acme Inc Team"
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
-                      className={cn("w-full justify-start text-left font-normal", !endDate && "text-muted-foreground")}
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !endDate && "text-muted-foreground"
+                      )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
                       {endDate ? format(endDate, "PPP") : "Select end date"}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
-                    <Calendar mode="single" selected={endDate} onSelect={setEndDate} initialFocus />
+                    <Calendar
+                      mode="single"
+                      selected={endDate}
+                      onSelect={setEndDate}
+                      initialFocus
+                    />
                   </PopoverContent>
                 </Popover>
               </div>
@@ -548,7 +713,8 @@ The Acme Inc Team"
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground">
-                AI-optimized timing uses machine learning to determine the best time to contact each recipient
+                AI-optimized timing uses machine learning to determine the best
+                time to contact each recipient
               </p>
             </div>
 
@@ -597,12 +763,17 @@ The Acme Inc Team"
             <div className="space-y-2">
               <Label>Days of Week</Label>
               <div className="flex flex-wrap gap-2">
-                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, index) => (
-                  <div key={day} className="flex items-center space-x-2">
-                    <Switch id={`day-${day.toLowerCase()}`} defaultChecked={index < 5} />
-                    <Label htmlFor={`day-${day.toLowerCase()}`}>{day}</Label>
-                  </div>
-                ))}
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                  (day, index) => (
+                    <div key={day} className="flex items-center space-x-2">
+                      <Switch
+                        id={`day-${day.toLowerCase()}`}
+                        defaultChecked={index < 5}
+                      />
+                      <Label htmlFor={`day-${day.toLowerCase()}`}>{day}</Label>
+                    </div>
+                  )
+                )}
               </div>
             </div>
 
@@ -611,15 +782,25 @@ The Acme Inc Team"
                 <Label htmlFor="throttling">Throttling</Label>
                 <span className="text-sm">100 contacts/hour</span>
               </div>
-              <Input id="throttling" type="range" min="10" max="500" step="10" defaultValue="100" />
+              <Input
+                id="throttling"
+                type="range"
+                min="10"
+                max="500"
+                step="10"
+                defaultValue="100"
+              />
               <p className="text-xs text-muted-foreground">
-                Limit the number of contacts per hour to avoid overwhelming your team or systems
+                Limit the number of contacts per hour to avoid overwhelming your
+                team or systems
               </p>
             </div>
 
             <div className="flex items-center space-x-2">
               <Switch id="auto-pause" defaultChecked />
-              <Label htmlFor="auto-pause">Enable AI-driven auto-pause based on performance metrics</Label>
+              <Label htmlFor="auto-pause">
+                Enable AI-driven auto-pause based on performance metrics
+              </Label>
             </div>
           </div>
         )}
@@ -648,11 +829,15 @@ The Acme Inc Team"
                 </div>
                 <div>
                   <p className="text-muted-foreground">Start Date:</p>
-                  <p className="font-medium">{startDate ? format(startDate, "PPP") : "Not set"}</p>
+                  <p className="font-medium">
+                    {startDate ? format(startDate, "PPP") : "Not set"}
+                  </p>
                 </div>
                 <div>
                   <p className="text-muted-foreground">End Date:</p>
-                  <p className="font-medium">{endDate ? format(endDate, "PPP") : "Not set"}</p>
+                  <p className="font-medium">
+                    {endDate ? format(endDate, "PPP") : "Not set"}
+                  </p>
                 </div>
                 <div>
                   <p className="text-muted-foreground">Audience:</p>
@@ -673,8 +858,10 @@ The Acme Inc Team"
                   <p>Product Upsell</p>
                   <p className="text-muted-foreground mt-2">Introduction:</p>
                   <p className="text-sm">
-                    "Hello, this is [AI_NAME] from Acme Inc. I hope you're enjoying our service. I'm calling to tell you
-                    about some exciting premium features that could enhance your experience."
+                    "Hello, this is [AI_NAME] from Acme Inc. I hope you're
+                    enjoying our service. I'm calling to tell you about some
+                    exciting premium features that could enhance your
+                    experience."
                   </p>
                 </div>
               )}
@@ -684,8 +871,9 @@ The Acme Inc Team"
                   <p>Promotional Offer</p>
                   <p className="text-muted-foreground mt-2">Message:</p>
                   <p className="text-sm">
-                    "Hi {"{FirstName}"}, Acme Inc here! We're offering 20% off our premium plan just for you. Upgrade
-                    now at example.com/upgrade. Reply STOP to opt out."
+                    "Hi {"{FirstName}"}, Acme Inc here! We're offering 20% off
+                    our premium plan just for you. Upgrade now at
+                    example.com/upgrade. Reply STOP to opt out."
                   </p>
                 </div>
               )}
@@ -694,15 +882,22 @@ The Acme Inc Team"
                   <p className="text-muted-foreground">Template:</p>
                   <p>Promotional</p>
                   <p className="text-muted-foreground mt-2">Subject:</p>
-                  <p className="text-sm">Special offer just for you, {"{FirstName}"}</p>
+                  <p className="text-sm">
+                    Special offer just for you, {"{FirstName}"}
+                  </p>
                   <p className="text-muted-foreground mt-2">Preview:</p>
                   <div className="border rounded p-2 text-xs">
                     <p>Dear {"{FirstName}"},</p>
                     <p className="mt-2">
-                      We hope you're enjoying your experience with Acme Inc. We wanted to let you know about some
-                      exciting new premium features that we think would be perfect for you based on your usage.
+                      We hope you're enjoying your experience with Acme Inc. We
+                      wanted to let you know about some exciting new premium
+                      features that we think would be perfect for you based on
+                      your usage.
                     </p>
-                    <p className="mt-2">For a limited time, we're offering a 20% discount on our premium plan.</p>
+                    <p className="mt-2">
+                      For a limited time, we're offering a 20% discount on our
+                      premium plan.
+                    </p>
                     <p className="mt-2">[Button: Upgrade Now]</p>
                     <p className="mt-2">
                       Best regards,
@@ -742,7 +937,9 @@ The Acme Inc Team"
 
             <div className="flex items-center space-x-2">
               <Switch id="activate-immediately" defaultChecked />
-              <Label htmlFor="activate-immediately">Activate campaign immediately after creation</Label>
+              <Label htmlFor="activate-immediately">
+                Activate campaign immediately after creation
+              </Label>
             </div>
           </div>
         )}
@@ -764,5 +961,5 @@ The Acme Inc Team"
         )}
       </CardFooter>
     </Card>
-  )
+  );
 }

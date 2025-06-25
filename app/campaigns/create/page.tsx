@@ -1,24 +1,35 @@
-import { CampaignCreationWizard } from "@/components/campaign-creation-wizard"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Mail, MessageSquare, Phone } from "lucide-react"
+import { CampaignCreationWizard } from "@/components/campaign-creation-wizard";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Mail, MessageSquare, Phone } from "lucide-react";
 
 export default function CreateCampaignPage() {
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Create Campaign</h2>
-        <p className="text-muted-foreground">Set up a new AI-driven communication campaign</p>
+        <p className="text-muted-foreground">
+          Set up a new AI-driven communication campaign
+        </p>
       </div>
 
       <Tabs defaultValue="call" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="call" className="flex items-center gap-2">
+          <TabsTrigger
+            value="call"
+            className="flex items-center gap-2 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
             <Phone className="h-4 w-4" /> Call Campaign
           </TabsTrigger>
-          <TabsTrigger value="sms" className="flex items-center gap-2">
+          <TabsTrigger
+            value="sms"
+            className="flex items-center gap-2 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
             <MessageSquare className="h-4 w-4" /> SMS Campaign
           </TabsTrigger>
-          <TabsTrigger value="email" className="flex items-center gap-2">
+          <TabsTrigger
+            value="email"
+            className="flex items-center gap-2 data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
             <Mail className="h-4 w-4" /> Email Campaign
           </TabsTrigger>
         </TabsList>
@@ -36,5 +47,5 @@ export default function CreateCampaignPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

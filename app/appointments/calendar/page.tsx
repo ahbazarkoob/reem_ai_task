@@ -5,13 +5,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent } from "@/components/ui/card"
-import { AppointmentCalendar } from "@/components/appointment-calendar"
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
-import Link from "next/link"
+} from "@/components/ui/breadcrumb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+import { AppointmentCalendar } from "@/components/appointment-calendar";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 
 export default function AppointmentsCalendarPage() {
   return (
@@ -27,7 +27,9 @@ export default function AppointmentsCalendarPage() {
               <BreadcrumbPage>Appointments Calendar</BreadcrumbPage>
             </BreadcrumbList>
           </Breadcrumb>
-          <h2 className="text-3xl font-bold tracking-tight mt-2">Appointments Calendar</h2>
+          <h2 className="text-3xl font-bold tracking-tight mt-2">
+            Appointments Calendar
+          </h2>
         </div>
         <Button asChild>
           <Link href="/appointments/schedule">
@@ -39,10 +41,30 @@ export default function AppointmentsCalendarPage() {
       <Tabs defaultValue="month">
         <div className="flex justify-between items-center">
           <TabsList>
-            <TabsTrigger value="month">Month</TabsTrigger>
-            <TabsTrigger value="week">Week</TabsTrigger>
-            <TabsTrigger value="day">Day</TabsTrigger>
-            <TabsTrigger value="agenda">Agenda</TabsTrigger>
+            <TabsTrigger
+              value="month"
+              className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+            >
+              Month
+            </TabsTrigger>
+            <TabsTrigger
+              value="week"
+              className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+            >
+              Week
+            </TabsTrigger>
+            <TabsTrigger
+              value="day"
+              className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+            >
+              Day
+            </TabsTrigger>
+            <TabsTrigger
+              value="agenda"
+              className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+            >
+              Agenda
+            </TabsTrigger>
           </TabsList>
         </div>
 
@@ -64,5 +86,5 @@ export default function AppointmentsCalendarPage() {
         </Card>
       </Tabs>
     </div>
-  )
+  );
 }

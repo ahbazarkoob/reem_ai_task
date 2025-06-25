@@ -5,13 +5,19 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { AppointmentList } from "@/components/appointment-list"
-import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
-import Link from "next/link"
+} from "@/components/ui/breadcrumb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { AppointmentList } from "@/components/appointment-list";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import Link from "next/link";
 
 export default function AppointmentsListPage() {
   return (
@@ -27,7 +33,9 @@ export default function AppointmentsListPage() {
               <BreadcrumbPage>Appointments</BreadcrumbPage>
             </BreadcrumbList>
           </Breadcrumb>
-          <h2 className="text-3xl font-bold tracking-tight mt-2">Appointments</h2>
+          <h2 className="text-3xl font-bold tracking-tight mt-2">
+            Appointments
+          </h2>
         </div>
         <Button asChild>
           <Link href="/appointments/schedule">
@@ -38,16 +46,38 @@ export default function AppointmentsListPage() {
 
       <Tabs defaultValue="upcoming">
         <TabsList>
-          <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-          <TabsTrigger value="past">Past</TabsTrigger>
-          <TabsTrigger value="canceled">Canceled</TabsTrigger>
-          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger
+            value="upcoming"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Upcoming
+          </TabsTrigger>
+          <TabsTrigger
+            value="past"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Past
+          </TabsTrigger>
+          <TabsTrigger
+            value="canceled"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Canceled
+          </TabsTrigger>
+          <TabsTrigger
+            value="all"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            All
+          </TabsTrigger>
         </TabsList>
 
         <Card className="mt-4">
           <CardHeader>
             <CardTitle>Appointment List</CardTitle>
-            <CardDescription>View and manage your scheduled appointments</CardDescription>
+            <CardDescription>
+              View and manage your scheduled appointments
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <TabsContent value="upcoming" className="mt-0">
@@ -66,5 +96,5 @@ export default function AppointmentsListPage() {
         </Card>
       </Tabs>
     </div>
-  )
+  );
 }

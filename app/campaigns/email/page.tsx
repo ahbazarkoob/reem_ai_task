@@ -1,10 +1,16 @@
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CalendarClock, Plus } from "lucide-react"
-import { EmailCampaignList } from "@/components/email-campaign-list"
-import { EmailCampaignPerformance } from "@/components/email-campaign-performance"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CalendarClock, Plus } from "lucide-react";
+import { EmailCampaignList } from "@/components/email-campaign-list";
+import { EmailCampaignPerformance } from "@/components/email-campaign-performance";
+import Link from "next/link";
 
 export default function EmailCampaignsPage() {
   return (
@@ -12,7 +18,9 @@ export default function EmailCampaignsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Email Campaigns</h2>
-          <p className="text-muted-foreground">Manage your email marketing campaigns</p>
+          <p className="text-muted-foreground">
+            Manage your email marketing campaigns
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" size="sm">
@@ -30,18 +38,45 @@ export default function EmailCampaignsPage() {
 
       <Tabs defaultValue="active" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="active">Active Campaigns</TabsTrigger>
-          <TabsTrigger value="completed">Completed Campaigns</TabsTrigger>
-          <TabsTrigger value="scheduled">Scheduled Campaigns</TabsTrigger>
-          <TabsTrigger value="drafts">Drafts</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+          <TabsTrigger
+            value="active"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Active Campaigns
+          </TabsTrigger>
+          <TabsTrigger
+            value="completed"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Completed Campaigns
+          </TabsTrigger>
+          <TabsTrigger
+            value="scheduled"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Scheduled Campaigns
+          </TabsTrigger>
+          <TabsTrigger
+            value="drafts"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Drafts
+          </TabsTrigger>
+          <TabsTrigger
+            value="analytics"
+            className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100"
+          >
+            Analytics
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="active" className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle>Active Email Campaigns</CardTitle>
-              <CardDescription>Currently running email marketing campaigns</CardDescription>
+              <CardDescription>
+                Currently running email marketing campaigns
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <EmailCampaignList status="active" />
@@ -89,7 +124,9 @@ export default function EmailCampaignsPage() {
           <Card>
             <CardHeader>
               <CardTitle>Email Campaign Analytics</CardTitle>
-              <CardDescription>Performance metrics across all email campaigns</CardDescription>
+              <CardDescription>
+                Performance metrics across all email campaigns
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <EmailCampaignPerformance />
@@ -98,5 +135,5 @@ export default function EmailCampaignsPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

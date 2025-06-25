@@ -899,13 +899,13 @@ export function AppointmentScheduler() {
           <div className="flex justify-between items-center">
             <Tabs value={`step-${step}`} className="w-full">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="step-1" onClick={() => setStep(1)} disabled={step < 1}>
+                <TabsTrigger className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100" value="step-1" onClick={() => setStep(1)} disabled={step < 1}>
                   Contact & Details
                 </TabsTrigger>
-                <TabsTrigger value="step-2" onClick={() => setStep(2)} disabled={step < 2}>
+                <TabsTrigger className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100" value="step-2" onClick={() => setStep(2)} disabled={step < 2}>
                   Date & Time
                 </TabsTrigger>
-                <TabsTrigger value="step-3" onClick={() => setStep(3)} disabled={step < 3}>
+                <TabsTrigger className="data-[state=active]:text-primary/80 text-gray-500 data-[state=active]:bg-gray-100" value="step-3" onClick={() => setStep(3)} disabled={step < 3}>
                   Location & Notes
                 </TabsTrigger>
               </TabsList>
